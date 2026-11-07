@@ -30,13 +30,18 @@ body {
 }
 
 img,
-picture,
 svg,
 video,
 canvas {
   display: block;
   max-width: 100%;
   height: auto;
+}
+
+/* Astro's <Picture> wrapper would otherwise introduce a box that prevents the
+   image from filling a fixed-ratio frame. Let the <img> be laid out by it. */
+picture {
+  display: contents;
 }
 
 input,

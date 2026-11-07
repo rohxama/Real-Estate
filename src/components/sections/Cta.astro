@@ -1,0 +1,169 @@
+---
+import { Picture } from 'astro:assets';
+import Container from '@/components/layout/Container.astro';
+import Button from '@/components/ui/Button.astro';
+import Icon from '@/components/ui/Icon.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import signatureHome from '@/assets/images/cta/signature-home.jpg';
+---
+
+<section class="cta section" id="contact" aria-labelledby="contact-title">
+  <Container>
+    <div class="cta__layout">
+      <div class="cta__content">
+        <SectionHeading
+          id="contact-title"
+          line1="Find Your Signature Home"
+          line2="Today. Explore the Collection"
+        />
+
+        <p class="body-text cta__copy">
+          Every home we represent is chosen for its architecture, its setting
+          and its ability to feel immediately like your own. Tell us what you
+          are looking for, and we will arrange a private viewing at your pace.
+        </p>
+
+        <Button class="cta__button" href="mailto:hello@estatia.com" size="sm">
+          Book a private viewing
+          <Icon slot="trailing" name="arrow-up-right" size={13} />
+        </Button>
+
+        <dl class="cta__meta">
+          <div class="cta__meta-item">
+            <dt>Phone</dt>
+            <dd><a href="tel:+12125550148">+1 (212) 555 0148</a></dd>
+          </div>
+          <div class="cta__meta-item">
+            <dt>Email</dt>
+            <dd><a href="mailto:hello@estatia.com">hello@estatia.com</a></dd>
+          </div>
+          <div class="cta__meta-item">
+            <dt>Studio</dt>
+            <dd>24 West 57th Street, New York</dd>
+          </div>
+          <div class="cta__meta-item">
+            <dt>Follow</dt>
+            <dd>
+              <a
+                href="https://www.instagram.com/"
+                rel="noopener noreferrer"
+                target="_blank">Instagram</a
+              >
+            </dd>
+          </div>
+        </dl>
+      </div>
+
+      <figure class="cta__media">
+        <Picture
+          src={signatureHome}
+          alt="Symmetrical white classical villa with a deep colonnade and a broad lawn."
+          formats={['avif', 'webp']}
+          fallbackFormat="jpg"
+          widths={[640, 960, 1280]}
+          sizes="(max-width: 64rem) 100vw, (max-width: 85rem) 46vw, 630px"
+          quality={82}
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    </div>
+  </Container>
+</section>
+
+<style>
+  .cta__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(2.5rem, 5vw, 5rem);
+  }
+
+  .cta__content :global(.section-heading__title) {
+    font-size: clamp(2.25rem, 1.75rem + 2vw, 3rem);
+  }
+
+  .cta__copy {
+    margin-block-start: var(--space-5);
+  }
+
+  .cta__content > :global(.cta__button) {
+    margin-block-start: var(--space-6);
+  }
+
+  .cta__meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4) var(--space-6);
+    margin-block-start: clamp(2rem, 3.5vw, 3rem);
+    padding-block-start: var(--space-5);
+    border-block-start: 1px solid var(--color-line);
+  }
+
+  .cta__meta-item dt {
+    font-family: var(--font-body);
+    font-size: var(--text-2xs);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .cta__meta-item dd {
+    margin-block-start: 0.35rem;
+    font-size: var(--text-sm);
+    line-height: var(--leading-snug);
+    color: var(--color-ink-soft);
+  }
+
+  .cta__meta-item a {
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .cta__meta-item a:hover {
+    color: var(--color-accent);
+  }
+
+  .cta__media {
+    overflow: hidden;
+    aspect-ratio: 2.05 / 1;
+    margin: 0;
+    border-radius: var(--radius-lg);
+    background-color: var(--color-img-tint);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .cta__media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (max-width: 64rem) {
+    .cta__layout {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-7);
+    }
+
+    .cta__media {
+      aspect-ratio: 2.2 / 1;
+    }
+  }
+
+  @media (max-width: 48rem) {
+    .cta__media {
+      aspect-ratio: 1.8 / 1;
+    }
+  }
+
+  @media (max-width: 30rem) {
+    .cta__meta {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .cta__media {
+      aspect-ratio: 1.5 / 1;
+    }
+  }
+</style>

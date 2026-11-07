@@ -1,0 +1,48 @@
+---
+import BrandMark from '@/components/ui/BrandMark.astro';
+---
+
+<footer class="site-footer">
+  <p class="visually-hidden">Estatia — luxury real estate</p>
+
+  <div class="site-footer__band" aria-hidden="true">
+    <span class="site-footer__word">estatia</span>
+    <BrandMark class="site-footer__mark" size={160} />
+    <span class="site-footer__word">estatia</span>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    overflow: hidden;
+    padding-block: clamp(2.5rem, 5vw, 4.5rem) clamp(0.75rem, 1.5vw, 1.5rem);
+    background-color: var(--color-bg);
+    color: var(--color-accent);
+  }
+
+  .site-footer__band {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.5rem, 1.5vw, 1.75rem);
+    width: 100%;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  .site-footer__word {
+    flex: none;
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 13.5vw, 13.5rem);
+    font-weight: var(--weight-regular);
+    line-height: 0.8;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+
+  .site-footer :global(.site-footer__mark) {
+    flex: none;
+    width: clamp(2.75rem, 9vw, 9rem);
+    height: auto;
+  }
+</style>

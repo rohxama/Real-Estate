@@ -1,0 +1,280 @@
+---
+import { Picture } from 'astro:assets';
+import Container from '@/components/layout/Container.astro';
+import Button from '@/components/ui/Button.astro';
+import Eyebrow from '@/components/ui/Eyebrow.astro';
+import Icon from '@/components/ui/Icon.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import aboutHouse from '@/assets/images/about/about-house.jpg';
+import aboutVilla from '@/assets/images/about/about-villa.jpg';
+---
+
+<section class="about section" id="about" aria-labelledby="about-title">
+  <Container>
+    <Eyebrow class="about__kicker">About us</Eyebrow>
+
+    <SectionHeading
+      id="about-title"
+      align="center"
+      line1="Crafted for Exceptional"
+      line2="Modern Luxury Living"
+    />
+
+    <div class="about__composition">
+      <svg
+        class="about__arcs"
+        viewBox="0 0 1200 700"
+        preserveAspectRatio="none"
+        fill="none"
+        aria-hidden="true"
+      >
+        <ellipse cx="600" cy="390" rx="560" ry="330" stroke="currentColor" />
+        <ellipse cx="600" cy="390" rx="430" ry="250" stroke="currentColor" />
+        <ellipse cx="600" cy="390" rx="300" ry="170" stroke="currentColor" />
+      </svg>
+
+      <figure class="about__figure about__figure--a">
+        <div class="about__media about__media--a">
+          <Picture
+            src={aboutHouse}
+            alt="Modern white house with dark-framed glazing and a timber soffit above a lawn."
+            formats={['avif', 'webp']}
+            fallbackFormat="jpg"
+            widths={[320, 480, 640]}
+            sizes="(max-width: 48rem) 100vw, (max-width: 85rem) 24vw, 320px"
+            quality={80}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </figure>
+
+      <div class="about__text">
+        <p class="body-text">
+          For more than two decades we have represented homes of rare character
+          — restoring landmark residences, guiding private collections and
+          placing architecture where light, land and craft belong together. Our
+          work is quiet, considered and built to endure.
+        </p>
+      </div>
+
+      <Button class="about__cta" href="#properties" size="sm">
+        Learn more
+        <Icon slot="trailing" name="arrow-right" size={13} />
+      </Button>
+
+      <figure class="about__figure about__figure--b">
+        <div class="about__media about__media--b">
+          <Picture
+            src={aboutVilla}
+            alt="Contemporary villa with a projecting upper storey above a reflecting pool."
+            formats={['avif', 'webp']}
+            fallbackFormat="jpg"
+            widths={[480, 720, 960]}
+            sizes="(max-width: 48rem) 100vw, (max-width: 85rem) 36vw, 480px"
+            quality={80}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </figure>
+
+      <svg
+        class="about__badge"
+        viewBox="0 0 120 120"
+        fill="none"
+        aria-hidden="true"
+      >
+        <defs>
+          <path
+            id="about-badge-path"
+            d="M60 60m-44 0a44 44 0 1 1 88 0a44 44 0 1 1-88 0"
+          />
+        </defs>
+        <circle
+          cx="60"
+          cy="60"
+          r="8"
+          stroke="currentColor"
+          stroke-width="0.8"
+        />
+        <text fill="currentColor">
+          <textPath
+            href="#about-badge-path"
+            textLength="276"
+            lengthAdjust="spacing"
+          >
+            ESTATIA · PRIVATE COLLECTION · ESTATIA · PRIVATE COLLECTION ·
+          </textPath>
+        </text>
+      </svg>
+    </div>
+  </Container>
+</section>
+
+<style>
+  .about {
+    position: relative;
+  }
+
+  .about__kicker {
+    display: block;
+    margin-block-end: var(--space-3);
+  }
+
+  .about__composition {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--grid-gap);
+    row-gap: clamp(2.5rem, 5vw, 4.5rem);
+    margin-block-start: clamp(3rem, 5vw, 4.5rem);
+  }
+
+  .about__figure {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+  }
+
+  .about__figure--a {
+    grid-column: 1 / span 3;
+    grid-row: 1;
+    align-self: start;
+  }
+
+  .about__media {
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    background-color: var(--color-img-tint);
+  }
+
+  .about__media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .about__media--a {
+    aspect-ratio: 1 / 1;
+    border-radius: var(--radius-sm);
+  }
+
+  .about__media--b {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-lg);
+  }
+
+  .about__text {
+    position: relative;
+    z-index: 2;
+    grid-column: 4 / span 5;
+    grid-row: 1;
+    align-self: center;
+    padding-inline-end: clamp(1rem, 3vw, 3rem);
+  }
+
+  .about__composition > :global(.about__cta) {
+    grid-column: 4 / span 4;
+    grid-row: 2;
+    align-self: end;
+    justify-self: end;
+    margin-block-start: var(--space-4);
+  }
+
+  .about__figure--b {
+    grid-column: 9 / span 4;
+    grid-row: 2;
+  }
+
+  /* Faint concentric arcs behind the composition -------------------------- */
+  .about__arcs {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    color: var(--color-accent);
+    opacity: 0.09;
+    pointer-events: none;
+  }
+
+  .about__arcs ellipse {
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+  }
+
+  /* Rotating seal between the copy and the lower image -------------------- */
+  .about__badge {
+    position: absolute;
+    inset-block-start: 46%;
+    inset-inline-start: 58%;
+    z-index: 0;
+    width: clamp(6rem, 9vw, 8.5rem);
+    height: auto;
+    color: var(--color-accent);
+    opacity: 0.38;
+    pointer-events: none;
+  }
+
+  .about__badge text {
+    font-family: var(--font-body);
+    font-size: 7px;
+    font-weight: var(--weight-medium);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 64rem) {
+    .about__text {
+      grid-column: 4 / span 5;
+      padding-inline-end: 0;
+    }
+
+    .about__figure--b {
+      grid-column: 9 / span 4;
+    }
+  }
+
+  @media (max-width: 48rem) {
+    .about__composition {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: var(--space-5);
+      margin-block-start: var(--space-6);
+    }
+
+    .about__text,
+    .about__figure--a,
+    .about__figure--b,
+    .about__composition > :global(.about__cta) {
+      grid-column: 1;
+    }
+
+    .about__text {
+      grid-row: 1;
+    }
+
+    .about__figure--a {
+      grid-row: 2;
+    }
+
+    .about__media--a {
+      aspect-ratio: 4 / 3;
+    }
+
+    .about__figure--b {
+      grid-row: 3;
+    }
+
+    .about__composition > :global(.about__cta) {
+      grid-row: 4;
+      justify-self: start;
+      margin-block-start: 0;
+    }
+
+    .about__arcs,
+    .about__badge {
+      display: none;
+    }
+  }
+</style>

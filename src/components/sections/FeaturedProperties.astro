@@ -1,0 +1,82 @@
+---
+import Container from '@/components/layout/Container.astro';
+import LinkArrow from '@/components/ui/LinkArrow.astro';
+import PropertyCard from '@/components/ui/PropertyCard.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import { featuredProperties } from '@/data/properties';
+---
+
+<section
+  class="properties section"
+  id="properties"
+  aria-labelledby="properties-title"
+>
+  <Container>
+    <div class="properties__head">
+      <SectionHeading
+        id="properties-title"
+        line1="Explore Spaces Designed"
+        line2="For Modern Living."
+      />
+
+      <LinkArrow class="properties__link" href="#collection">
+        Explore all properties
+      </LinkArrow>
+    </div>
+
+    <div class="properties__grid">
+      {
+        featuredProperties.map((property) => (
+          <PropertyCard property={property} />
+        ))
+      }
+    </div>
+  </Container>
+</section>
+
+<style>
+  .properties__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-6);
+  }
+
+  .properties__head > :global(.properties__link) {
+    flex: none;
+    padding-block-end: 0.4rem;
+  }
+
+  .properties__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(2rem, 3vw, 2.5rem);
+    row-gap: clamp(3rem, 5vw, 5rem);
+    margin-block-start: clamp(2.5rem, 4.5vw, 4rem);
+  }
+
+  .properties__grid > :global(.property-card:nth-child(even)) {
+    margin-block-start: clamp(2rem, 6vw, 5rem);
+  }
+
+  @media (max-width: 48rem) {
+    .properties__head {
+      display: grid;
+      justify-items: start;
+      gap: var(--space-5);
+    }
+
+    .properties__head > :global(.properties__link) {
+      padding-block-end: 0;
+    }
+
+    .properties__grid {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: var(--space-7);
+    }
+
+    .properties__grid > :global(.property-card:nth-child(even)) {
+      margin-block-start: 0;
+    }
+  }
+</style>

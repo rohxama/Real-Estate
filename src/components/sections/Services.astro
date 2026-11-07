@@ -1,0 +1,209 @@
+---
+import { Picture } from 'astro:assets';
+import Container from '@/components/layout/Container.astro';
+import Icon from '@/components/ui/Icon.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import { services } from '@/data/services';
+---
+
+<section class="services section" aria-labelledby="services-title">
+  <Container>
+    <SectionHeading
+      id="services-title"
+      align="center"
+      line1="Timeless Services,"
+      line2="Singular Vision."
+    />
+
+    <div class="services__list">
+      {
+        services.map((service, index) => (
+          <details
+            class="service"
+            name="services"
+            open={index === 0 ? true : undefined}
+          >
+            <summary class="service__summary">
+              <span class="service__index numeric">{service.index}</span>
+              <span class="service__title">{service.title}</span>
+              <span class="service__control" aria-hidden="true">
+                <Icon class="service__plus" name="plus" size={15} />
+                <Icon class="service__minus" name="minus" size={15} />
+              </span>
+            </summary>
+
+            <div class="service__panel">
+              <div class="service__panel-inner">
+                <p class="service__copy">{service.description}</p>
+
+                <figure class="service__media">
+                  <Picture
+                    src={service.image}
+                    alt={service.alt}
+                    formats={['avif', 'webp']}
+                    fallbackFormat="jpg"
+                    widths={[640, 960, 1280, 1600]}
+                    sizes="(max-width: 48rem) 100vw, (max-width: 85rem) 72vw, 980px"
+                    quality={80}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </figure>
+              </div>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </Container>
+</section>
+
+<style>
+  .services__list {
+    margin-block-start: clamp(2.5rem, 4.5vw, 4rem);
+    interpolate-size: allow-keywords;
+  }
+
+  .service {
+    border-block-start: 1px solid var(--color-line);
+  }
+
+  .service:last-child {
+    border-block-end: 1px solid var(--color-line);
+  }
+
+  .service__summary {
+    display: grid;
+    grid-template-columns: 3.25rem minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--space-4);
+    padding-block: 0.85rem;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .service__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .service__summary:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 4px;
+  }
+
+  .service__index {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+
+  .service__title {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-snug);
+    color: var(--color-ink);
+  }
+
+  .service__control {
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    place-items: center;
+    border: 1px solid var(--color-line);
+    border-radius: 50%;
+    color: var(--color-ink);
+    transition:
+      background-color var(--duration-fast) var(--ease-out),
+      border-color var(--duration-fast) var(--ease-out),
+      color var(--duration-fast) var(--ease-out);
+  }
+
+  .service:hover .service__control {
+    border-color: var(--color-ink);
+  }
+
+  .service[open] .service__control {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+
+  .service[open] :global(.service__plus) {
+    display: none;
+  }
+
+  .service:not([open]) :global(.service__minus) {
+    display: none;
+  }
+
+  /* Native height animation with a graceful no-animation fallback. */
+  .service::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition: block-size var(--duration-slow) var(--ease-out);
+  }
+
+  .service[open]::details-content {
+    block-size: auto;
+  }
+
+  .service__panel {
+    padding-block-end: clamp(1.5rem, 2.5vw, 2.25rem);
+  }
+
+  .service__panel-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 0.28fr) minmax(0, 1fr);
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    align-items: start;
+  }
+
+  .service__copy {
+    max-width: 30ch;
+    padding-block-start: 0.35rem;
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+    color: var(--color-muted);
+  }
+
+  .service__media {
+    overflow: hidden;
+    aspect-ratio: 2.3 / 1;
+    margin: 0;
+    border-radius: var(--radius-md);
+    background-color: var(--color-img-tint);
+    box-shadow: inset 0 0 0 1px rgba(36, 26, 21, 0.08);
+  }
+
+  .service__media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (max-width: 48rem) {
+    .service__summary {
+      grid-template-columns: 2.25rem minmax(0, 1fr) auto;
+    }
+
+    .service__title {
+      font-size: var(--text-body);
+    }
+
+    .service__panel-inner {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .service__media {
+      aspect-ratio: 1.6 / 1;
+    }
+  }
+
+  @media (max-width: 30rem) {
+    .service__summary {
+      grid-template-columns: 1.75rem minmax(0, 1fr) auto;
+      gap: var(--space-3);
+    }
+  }
+</style>

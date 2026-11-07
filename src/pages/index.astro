@@ -1,7 +1,14 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import Footer from '@/components/layout/Footer.astro';
 import Header from '@/components/layout/Header.astro';
+import About from '@/components/sections/About.astro';
+import Collection from '@/components/sections/Collection.astro';
+import Cta from '@/components/sections/Cta.astro';
+import Faq from '@/components/sections/Faq.astro';
+import FeaturedProperties from '@/components/sections/FeaturedProperties.astro';
 import Hero from '@/components/sections/Hero.astro';
+import Services from '@/components/sections/Services.astro';
 import { site } from '@/data/site';
 ---
 
@@ -10,5 +17,13 @@ import { site } from '@/data/site';
 
   <main id="main-content">
     <Hero />
+    <About />
+    <FeaturedProperties />
+    <Services />
+    <Collection />
+    <Faq />
+    <Cta />
   </main>
+
+  <Footer />
 </BaseLayout>

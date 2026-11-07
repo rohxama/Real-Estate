@@ -1,0 +1,90 @@
+---
+import Container from '@/components/layout/Container.astro';
+import Button from '@/components/ui/Button.astro';
+import CollectionItem from '@/components/ui/CollectionItem.astro';
+import Icon from '@/components/ui/Icon.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import { collectionItems } from '@/data/collection';
+---
+
+<section class="collection section" id="collection" aria-labelledby="collection-title">
+  <Container>
+    <div class="collection__head">
+      <SectionHeading
+        id="collection-title"
+        size="sm"
+        eyebrow="Our collection"
+        line1="Premium estates,"
+        line2="elegant waterfront living"
+      />
+
+      <div class="collection__intro">
+        <p class="body-text">
+          A considered portfolio of waterfront residences, country estates and
+          private villas — each chosen for its architecture, its setting and its
+          sense of calm.
+        </p>
+
+        <Button class="collection__cta" href="#contact" size="sm">
+          View all properties
+          <Icon slot="trailing" name="arrow-right" size={13} />
+        </Button>
+      </div>
+    </div>
+
+    <div class="collection__grid">
+      {
+        collectionItems.map((item, index) => (
+          <CollectionItem item={item} mirrored={index % 2 === 1} />
+        ))
+      }
+    </div>
+  </Container>
+</section>
+
+<style>
+  .collection__head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: end;
+  }
+
+  .collection__intro {
+    display: grid;
+    justify-items: start;
+    gap: var(--space-5);
+    padding-block-end: 0.35rem;
+  }
+
+  .collection__intro :global(.body-text) {
+    max-width: 44ch;
+  }
+
+  .collection__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(2.5rem, 4vw, 4.5rem);
+    row-gap: clamp(1.5rem, 2vw, 2rem);
+    margin-block-start: clamp(2.5rem, 4.5vw, 4rem);
+  }
+
+  @media (max-width: 64rem) {
+    .collection__head {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-6);
+      align-items: start;
+    }
+
+    .collection__grid {
+      column-gap: var(--space-6);
+    }
+  }
+
+  @media (max-width: 48rem) {
+    .collection__grid {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: var(--space-5);
+    }
+  }
+</style>

@@ -1,0 +1,82 @@
+---
+import { Picture } from 'astro:assets';
+import type { Property } from '@/data/properties';
+
+interface Props {
+  property: Property;
+  class?: string;
+}
+
+const { property, class: className } = Astro.props;
+---
+
+<article class:list={['property-card', className]}>
+  <div class="property-card__media">
+    <Picture
+      src={property.image}
+      alt={property.alt}
+      formats={['avif', 'webp']}
+      fallbackFormat="jpg"
+      widths={[480, 720, 960, 1280]}
+      sizes="(max-width: 48rem) 100vw, (max-width: 64rem) 46vw, 640px"
+      quality={80}
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+
+  <div class="property-card__caption">
+    <h3 class="property-card__name">{property.name}</h3>
+    <p class="property-card__price numeric">{property.price}</p>
+  </div>
+</article>
+
+<style>
+  .property-card__media {
+    overflow: hidden;
+    aspect-ratio: var(--ratio-landscape);
+    border-radius: var(--radius-md);
+    background-color: var(--color-img-tint);
+  }
+
+  .property-card__media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--duration-slow) var(--ease-out);
+  }
+
+  .property-card:hover .property-card__media :global(img) {
+    transform: scale(1.03);
+  }
+
+  .property-card__caption {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding-block-start: var(--space-4);
+  }
+
+  .property-card__name {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-snug);
+    letter-spacing: 0;
+    color: var(--color-ink);
+  }
+
+  .property-card__price {
+    flex: none;
+    font-size: var(--text-sm);
+    line-height: var(--leading-snug);
+    color: var(--color-muted);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .property-card:hover .property-card__media :global(img) {
+      transform: none;
+    }
+  }
+</style>

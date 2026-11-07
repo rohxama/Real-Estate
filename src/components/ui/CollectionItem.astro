@@ -1,0 +1,169 @@
+---
+import { Picture } from 'astro:assets';
+import type { CollectionItem } from '@/data/collection';
+
+interface Props {
+  item: CollectionItem;
+  mirrored?: boolean;
+  class?: string;
+}
+
+const { item, mirrored = false, class: className } = Astro.props;
+---
+
+<article
+  class:list={[
+    'collection-item',
+    mirrored && 'collection-item--mirrored',
+    className,
+  ]}
+>
+  <div class="collection-item__media">
+    <Picture
+      src={item.image}
+      alt={item.alt}
+      formats={['avif', 'webp']}
+      fallbackFormat="jpg"
+      widths={[280, 420, 560]}
+      sizes="(max-width: 48rem) 40vw, (max-width: 85rem) 22vw, 300px"
+      quality={78}
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+
+  <div class="collection-item__body">
+    <h3 class="collection-item__name">{item.name}</h3>
+    <p class="collection-item__location">{item.location}</p>
+
+    <dl class="collection-item__specs">
+      <div class="collection-item__spec">
+        <dt>Sq. Ft.</dt>
+        <dd class="numeric">{item.area}</dd>
+      </div>
+      <div class="collection-item__spec">
+        <dt>Beds</dt>
+        <dd class="numeric">{item.beds}</dd>
+      </div>
+      <div class="collection-item__spec">
+        <dt>Baths</dt>
+        <dd class="numeric">{item.baths}</dd>
+      </div>
+    </dl>
+  </div>
+</article>
+
+<style>
+  .collection-item {
+    display: grid;
+    grid-template-columns: minmax(0, 0.78fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(1rem, 1.6vw, 1.5rem);
+  }
+
+  .collection-item__media {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .collection-item__body {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .collection-item--mirrored {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.78fr);
+  }
+
+  .collection-item--mirrored .collection-item__media {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .collection-item--mirrored .collection-item__body {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .collection-item__media {
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-xs);
+    background-color: var(--color-img-tint);
+  }
+
+  .collection-item__media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--duration-slow) var(--ease-out);
+  }
+
+  .collection-item:hover .collection-item__media :global(img) {
+    transform: scale(1.04);
+  }
+
+  .collection-item__body {
+    min-width: 0;
+  }
+
+  .collection-item__name {
+    font-family: var(--font-display);
+    font-size: var(--text-body);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-snug);
+    letter-spacing: 0;
+    color: var(--color-ink);
+  }
+
+  .collection-item__location {
+    margin-block-start: 0.2rem;
+    font-size: var(--text-2xs);
+    line-height: var(--leading-snug);
+    color: var(--color-muted);
+  }
+
+  .collection-item__specs {
+    display: grid;
+    gap: 0.1rem;
+    margin-block-start: 0.6rem;
+  }
+
+  .collection-item__spec {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3);
+    max-width: 9.5rem;
+    font-size: var(--text-2xs);
+    line-height: 1.45;
+  }
+
+  .collection-item__spec dt {
+    color: var(--color-muted);
+  }
+
+  .collection-item__spec dd {
+    color: var(--color-ink-soft);
+  }
+
+  @media (max-width: 48rem) {
+    .collection-item--mirrored {
+      grid-template-columns: minmax(0, 0.78fr) minmax(0, 1fr);
+    }
+
+    .collection-item--mirrored .collection-item__media {
+      grid-column: 1;
+    }
+
+    .collection-item--mirrored .collection-item__body {
+      grid-column: 2;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .collection-item:hover .collection-item__media :global(img) {
+      transform: none;
+    }
+  }
+</style>
