@@ -4,13 +4,18 @@ import type { Property } from '@/data/properties';
 
 interface Props {
   property: Property;
+  delay?: number;
   class?: string;
 }
 
-const { property, class: className } = Astro.props;
+const { property, delay = 0, class: className } = Astro.props;
 ---
 
-<article class:list={['property-card', className]}>
+<article
+  class:list={['property-card', className]}
+  data-reveal
+  style={`--reveal-delay: ${delay}ms`}
+>
   <div class="property-card__media">
     <Picture
       src={property.image}

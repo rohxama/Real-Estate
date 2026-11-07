@@ -19,15 +19,15 @@ import { featuredProperties } from '@/data/properties';
         line2="For Modern Living."
       />
 
-      <LinkArrow class="properties__link" href="#collection">
+      <LinkArrow class="properties__link" href="#collection" delay={80}>
         Explore all properties
       </LinkArrow>
     </div>
 
     <div class="properties__grid">
       {
-        featuredProperties.map((property) => (
-          <PropertyCard property={property} />
+        featuredProperties.map((property, index) => (
+          <PropertyCard property={property} delay={(index % 2) * 70} />
         ))
       }
     </div>

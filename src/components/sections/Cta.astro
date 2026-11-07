@@ -17,18 +17,23 @@ import signatureHome from '@/assets/images/cta/signature-home.jpg';
           line2="Today. Explore the Collection"
         />
 
-        <p class="body-text cta__copy">
+        <p class="body-text cta__copy" data-reveal style="--reveal-delay: 60ms">
           Every home we represent is chosen for its architecture, its setting
           and its ability to feel immediately like your own. Tell us what you
           are looking for, and we will arrange a private viewing at your pace.
         </p>
 
-        <Button class="cta__button" href="mailto:hello@estatia.com" size="sm">
+        <Button
+          class="cta__button"
+          href="mailto:hello@estatia.com"
+          size="sm"
+          revealDelay={120}
+        >
           Book a private viewing
           <Icon slot="trailing" name="arrow-up-right" size={13} />
         </Button>
 
-        <dl class="cta__meta">
+        <dl class="cta__meta" data-reveal style="--reveal-delay: 180ms">
           <div class="cta__meta-item">
             <dt>Phone</dt>
             <dd><a href="tel:+12125550148">+1 (212) 555 0148</a></dd>
@@ -54,7 +59,11 @@ import signatureHome from '@/assets/images/cta/signature-home.jpg';
         </dl>
       </div>
 
-      <figure class="cta__media">
+      <figure
+        class="cta__media"
+        data-reveal="media"
+        style="--reveal-delay: 80ms"
+      >
         <Picture
           src={signatureHome}
           alt="Symmetrical white classical villa with a deep colonnade and a broad lawn."

@@ -3,13 +3,19 @@ import Icon from './Icon.astro';
 
 interface Props {
   href: string;
+  delay?: number;
   class?: string;
 }
 
-const { href, class: className } = Astro.props;
+const { href, delay = 0, class: className } = Astro.props;
 ---
 
-<a class:list={['link-arrow', className]} href={href}>
+<a
+  class:list={['link-arrow', className]}
+  href={href}
+  data-reveal
+  style={`--reveal-delay: ${delay}ms`}
+>
   <span class="link-arrow__label"><slot /></span>
   <Icon name="arrow-right" size={14} />
 </a>
@@ -36,7 +42,9 @@ const { href, class: className } = Astro.props;
     color: var(--color-accent);
   }
 
-  .link-arrow:hover :global(.icon) {
-    transform: translateX(3px);
+  @media (prefers-reduced-motion: no-preference) {
+    .link-arrow:hover :global(.icon) {
+      transform: translateX(3px);
+    }
   }
 </style>

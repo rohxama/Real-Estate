@@ -99,11 +99,15 @@ npm run preview
 │   │   ├── index.astro       # single page entry
 │   │   └── design-system.astro  # noindex style guide (verification only)
 │   ├── scripts/              # progressive-enhancement TS modules
+│   │   ├── main.ts           # single entry point
+│   │   ├── navigation.ts     # mobile disclosure behaviour
+│   │   └── reveals.ts        # one IntersectionObserver for scroll reveals
 │   ├── styles/
 │   │   ├── tokens.css        # colour, type, spacing, layout, radius, motion
 │   │   ├── base.css          # reset and element defaults
 │   │   ├── typography.css    # display/heading/body/label roles
 │   │   ├── layout.css        # container, section, grid, media, utilities
+│   │   ├── motion.css        # scroll reveals, reduced-motion safety net
 │   │   └── global.css        # single import surface
 │   └── env.d.ts
 ├── astro.config.mjs
@@ -193,8 +197,88 @@ Families sit behind single tokens, so replacing them later is a one-line change.
 - **Primitives:** `Button` (primary/outline/inverse, xs/sm/md), `IconButton`
   (outline/filled/inverse), `LinkArrow`, `Eyebrow`, `Icon`, `BrandMark`,
   `Container` (default/narrow/wide/flush).
-- **Motion:** restrained `--ease-out` transitions; all animation is disabled
-  under `prefers-reduced-motion`.
+- **Motion:** restrained `--ease-out` transitions (400–700 ms); scroll
+  reveals, hover nudges and the mobile panel are suppressed under
+  `prefers-reduced-motion`. See [Motion and interaction](#motion-and-interaction).
+
+---
+
+## Motion and interaction
+
+The reference motion character is restrained: 400–700 ms, `ease-out`, no
+bounce and no parallax. Only a few elements move — headings and media enter
+once, interactive controls respond on hover/focus/press, and accordions and the
+mobile panel open with a short fade and rise. There is no animation loop,
+no scroll listener and no continuous motion.
+
+### Architecture
+
+| Decision | Implementation |
+|---|---|
+| Smooth scrolling | Native `scroll-behavior: smooth` in `base.css`; no Lenis or GSAP. The page is short, the anchor set is small, and the browser implementation avoids another dependency. Set to `auto` under reduced motion. |
+| Scroll reveals | `src/scripts/reveals.ts` creates **one** `IntersectionObserver` for every `[data-reveal]` element, adds `.is-revealed`, then unobserves it. No scroll handler, no layout measurement and no rAF loop. |
+| Progressive enhancement | Content is visible by default. `reveals.ts` adds `html.reveal-ready` only when it can reveal; the hidden state lives behind that class. Without JavaScript or without `IntersectionObserver`, nothing is hidden. |
+| Reduced motion | The hidden state and reveal keyframes only exist under `prefers-reduced-motion: no-preference`. If the preference changes at runtime, the observer disconnects and every target is made visible. A global safety net also collapses remaining durations and smooth scroll to their end state. |
+| Why CSS | All motion is opacity/translate/scale or colour; there is no sequence that needs GSAP. Keeping it in CSS means no animation runtime on the critical path. |
+| Why animations rather than transitions for reveals | A transition declared on `[data-reveal]` would replace a button's or link's own transition list. Reveal keyframes animate only `opacity`, `translate` and `scale`, so component hover transitions keep working. |
+| Stagger | A per-element `--reveal-delay` (0–180 ms) offsets paired items and copy blocks. Only pairs stagger; the whole page never moves at once. |
+
+`motion.css` is imported after the layout styles, and `reveals.ts` is imported
+from `src/scripts/main.ts` beside the navigation module. The hero is the only
+section that does not use the reveal observer: its typography plays a one-time
+entrance on load and its photograph is deliberately untouched.
+
+### Interaction inventory
+
+| Element | Behaviour |
+|---|---|
+| Hero headline | Two-line translate-only entrance (700 ms, second line +90 ms); no opacity on the title, so the first paint still contains the LCP text. |
+| Hero meta | Fade + 12 px rise at 160 ms. |
+| Section headings, copy blocks, cards, collection items, FAQ and footer band | Fade + 20 px rise on first intersection (700 ms); media also scales from 0.985. |
+| Property cards / collection items | Image scales 1.03 / 1.04 on hover (700 ms). |
+| Services rows | Title turns accent on hover; control fills oxblood when open; `+` and `−` rotate/cross-fade instead of swapping with `display`; panel fades and rises; image scales 1.02 on hover. |
+| FAQ rows | Same icon morph; open row fills oxblood with cream text; answer fades and rises. Padding is identical in both states so question text never shifts horizontally. |
+| Desktop navigation | Accent colour plus a 1 px underline that wipes in from the left (400 ms). |
+| Mobile navigation | Panel fades and drops 8 px in/out (400 ms) using `@starting-style` + `display ... allow-discrete`; links nudge their arrow 2 px on hover; toggle bars morph to a close icon. |
+| Hero search | Active tab underline wipes between labels; field labels darken on hover/focus; chevron rotates 180° while the select has focus; submit arrow shifts 3 px. |
+| Buttons / link arrows | Background or border darkens; trailing arrow nudges 2–3 px; buttons press down 1 px. |
+| Accordions | Native `<details name>` open/close height via `interpolate-size: allow-keywords` where supported; one row open at a time everywhere. |
+
+### Deliberate omissions
+
+- **No Lenis.** Native smooth scrolling already matches the reference's calm
+  anchor behaviour, and reduced motion disables it.
+- **No GSAP.** No timeline, pinning, scroll-scrubbed sequence or staggered
+  choreography justifies the runtime.
+- **No page transitions.** The site is a single static page; anchor navigation
+  is the only route change.
+- **No collection carousel.** The reference shows a next control, but only
+  eight listings are known. Inventing inventory to fill a carousel would break
+  copy fidelity; the grid stays static. Hover zooms still provide feedback.
+- **No loading overlay or spinner.** The page is statically rendered and the
+  hero image is preloaded; a synthetic loader would delay content. The hero
+  typography entrance is the only load-time effect.
+
+### Motion validation
+
+| Check | Result |
+|---|---|
+| `npm run build` (`astro check` + static build) | 0 errors, 0 warnings, 0 hints |
+| Reveal targets | 30 / 30 revealed after a full desktop scroll; 30 / 30 on a 390 px viewport (footer included) |
+| No-JS | `reveal-ready` absent, 0 hidden targets, first FAQ and first service still open |
+| Reduced motion | `reveal-ready` absent, 0 hidden targets, `scroll-behavior: auto`, hover zooms `none`, hero animation 0.01 ms |
+| Hover states | card zoom 1.03, service zoom 1.02, link arrow +3 px, button arrow +2 px, button press +1 px |
+| Accordions | one open at a time; icon opacity swaps; FAQ answers become visible; question left edges identical (686.4 px) |
+| Navigation | mobile panel opens/closes in ≈400 ms, `aria-label` syncs, Escape returns focus to the toggle, link click closes and navigates |
+| Hero search | underline moves to the checked tab; focused chevron rotates 180°; submit arrow nudges |
+| Console / page errors | none |
+| CLS (1440 px full-page scroll with reveals) | ≈ 0.0021–0.0026 |
+| Horizontal overflow | 0 px at 1440, 1280, 1024, 768, 480, 390, 360 and 320 px |
+
+`@starting-style`, transitionable `display` and `::details-content` are
+progressive: browsers without them get an instant open/close with no layout or
+content risk. The reduced-motion safety net guarantees that even component
+transitions without an explicit guard collapse to their end state.
 
 ---
 
@@ -217,9 +301,7 @@ viewport, accent call-to-action right.
 
 ### Section anchors
 
-Navigation targets canonical section IDs on the single-page layout. The
-sections themselves arrive in later stages, so the hashes resolve once those
-sections land:
+Navigation targets canonical section IDs on the single-page layout:
 
 | Label | Target |
 |---|---|

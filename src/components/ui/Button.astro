@@ -4,6 +4,7 @@ interface Props {
   size?: 'xs' | 'sm' | 'md';
   href?: string;
   type?: 'button' | 'submit';
+  revealDelay?: number;
   class?: string;
 }
 
@@ -12,6 +13,7 @@ const {
   size = 'md',
   href,
   type = 'button',
+  revealDelay,
   class: className,
 } = Astro.props;
 
@@ -22,6 +24,8 @@ const Tag = href ? 'a' : 'button';
   class:list={['btn', `btn--${variant}`, `btn--${size}`, className]}
   href={href}
   type={href ? undefined : type}
+  data-reveal={revealDelay === undefined ? undefined : ''}
+  style={revealDelay === undefined ? undefined : `--reveal-delay: ${revealDelay}ms`}
 >
   <slot name="icon" />
   <span class="btn__label"><slot /></span>
@@ -46,7 +50,22 @@ const Tag = href ? 'a' : 'button';
     transition:
       background-color var(--duration-fast) var(--ease-out),
       color var(--duration-fast) var(--ease-out),
-      border-color var(--duration-fast) var(--ease-out);
+      border-color var(--duration-fast) var(--ease-out),
+      transform var(--duration-fast) var(--ease-out);
+  }
+
+  .btn :global(.icon) {
+    transition: transform var(--duration-fast) var(--ease-out);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .btn:hover :global(.icon) {
+      transform: translateX(2px);
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
   }
 
   .btn--md {

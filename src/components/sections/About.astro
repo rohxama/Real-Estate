@@ -33,7 +33,11 @@ import aboutVilla from '@/assets/images/about/about-villa.jpg';
         <ellipse cx="600" cy="390" rx="300" ry="170" stroke="currentColor" />
       </svg>
 
-      <figure class="about__figure about__figure--a">
+      <figure
+        class="about__figure about__figure--a"
+        data-reveal="media"
+        style="--reveal-delay: 40ms"
+      >
         <div class="about__media about__media--a">
           <Picture
             src={aboutHouse}
@@ -49,7 +53,7 @@ import aboutVilla from '@/assets/images/about/about-villa.jpg';
         </div>
       </figure>
 
-      <div class="about__text">
+      <div class="about__text" data-reveal style="--reveal-delay: 100ms">
         <p class="body-text">
           For more than two decades we have represented homes of rare character
           — restoring landmark residences, guiding private collections and
@@ -63,7 +67,11 @@ import aboutVilla from '@/assets/images/about/about-villa.jpg';
         <Icon slot="trailing" name="arrow-right" size={13} />
       </Button>
 
-      <figure class="about__figure about__figure--b">
+      <figure
+        class="about__figure about__figure--b"
+        data-reveal="media"
+        style="--reveal-delay: 160ms"
+      >
         <div class="about__media about__media--b">
           <Picture
             src={aboutVilla}

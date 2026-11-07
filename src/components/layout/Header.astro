@@ -277,10 +277,30 @@ const links = primaryNav.map((item) => ({
     border-block-start: 1px solid var(--color-line);
     background-color: var(--color-bg);
     box-shadow: var(--shadow-soft);
+    opacity: 0;
+    transform: translateY(-0.5rem);
   }
 
   .mobile-nav[open] .mobile-nav__panel {
     display: block;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .mobile-nav__panel {
+      transition:
+        opacity var(--duration-base) var(--ease-out),
+        transform var(--duration-base) var(--ease-out),
+        display var(--duration-base) allow-discrete;
+    }
+
+    @starting-style {
+      .mobile-nav[open] .mobile-nav__panel {
+        opacity: 0;
+        transform: translateY(-0.5rem);
+      }
+    }
   }
 
   .mobile-nav__inner {
@@ -307,6 +327,16 @@ const links = primaryNav.map((item) => ({
     letter-spacing: var(--tracking-nav);
     text-transform: uppercase;
     transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .mobile-nav__link :global(.icon) {
+    transition: transform var(--duration-fast) var(--ease-out);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .mobile-nav__link:hover :global(.icon) {
+      transform: translate(2px, -2px);
+    }
   }
 
   .mobile-nav__link:hover,

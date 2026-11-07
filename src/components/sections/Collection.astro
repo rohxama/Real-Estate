@@ -18,7 +18,7 @@ import { collectionItems } from '@/data/collection';
         line2="elegant waterfront living"
       />
 
-      <div class="collection__intro">
+      <div class="collection__intro" data-reveal style="--reveal-delay: 80ms">
         <p class="body-text">
           A considered portfolio of waterfront residences, country estates and
           private villas — each chosen for its architecture, its setting and its
@@ -35,7 +35,11 @@ import { collectionItems } from '@/data/collection';
     <div class="collection__grid">
       {
         collectionItems.map((item, index) => (
-          <CollectionItem item={item} mirrored={index % 2 === 1} />
+          <CollectionItem
+            item={item}
+            mirrored={index % 2 === 1}
+            delay={(index % 2) * 70}
+          />
         ))
       }
     </div>

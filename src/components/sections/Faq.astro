@@ -15,7 +15,7 @@ import { faqs } from '@/data/faqs';
         line2="Asked Question?"
       />
 
-      <div class="faq__list">
+      <div class="faq__list" data-reveal style="--reveal-delay: 80ms">
         {
           faqs.map((faq, index) => (
             <details
@@ -55,8 +55,13 @@ import { faqs } from '@/data/faqs';
   }
 
   .faq-item {
+    /* Padding is present in every state so the question text keeps the same
+       left edge when a row opens; only the fill changes. */
+    padding-inline: clamp(1rem, 1.8vw, 1.5rem);
     border-block-start: 1px solid var(--color-line);
-    transition: background-color var(--duration-base) var(--ease-out);
+    transition:
+      background-color var(--duration-base) var(--ease-out),
+      border-color var(--duration-base) var(--ease-out);
   }
 
   .faq-item:last-child {
@@ -68,7 +73,6 @@ import { faqs } from '@/data/faqs';
     border-radius: var(--radius-sm);
     background-color: var(--color-accent-deep);
     color: var(--color-on-accent);
-    padding-inline: clamp(1rem, 1.8vw, 1.5rem);
   }
 
   .faq-item__summary {
@@ -103,7 +107,12 @@ import { faqs } from '@/data/faqs';
     color: var(--color-on-accent);
   }
 
+  .faq-item:not([open]) .faq-item__summary:hover .faq-item__question {
+    color: var(--color-accent);
+  }
+
   .faq-item__control {
+    position: relative;
     display: grid;
     width: 2rem;
     height: 2rem;
@@ -116,17 +125,28 @@ import { faqs } from '@/data/faqs';
       color var(--duration-base) var(--ease-out);
   }
 
+  .faq-item__control :global(.icon) {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    transition:
+      opacity var(--duration-fast) var(--ease-out),
+      transform var(--duration-base) var(--ease-out);
+  }
+
   .faq-item[open] .faq-item__control {
     border-color: rgba(251, 246, 236, 0.32);
     color: var(--color-on-accent);
   }
 
   .faq-item[open] :global(.faq-item__plus) {
-    display: none;
+    opacity: 0;
+    transform: rotate(90deg) scale(0.8);
   }
 
   .faq-item:not([open]) :global(.faq-item__minus) {
-    display: none;
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.8);
   }
 
   .faq-item::details-content {
@@ -141,6 +161,16 @@ import { faqs } from '@/data/faqs';
 
   .faq-item__answer {
     padding-block-end: 1.35rem;
+    opacity: 0;
+    transform: translateY(-0.25rem);
+    transition:
+      opacity var(--duration-base) var(--ease-out) 60ms,
+      transform var(--duration-base) var(--ease-out) 60ms;
+  }
+
+  .faq-item[open] .faq-item__answer {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .faq-item__answer p {

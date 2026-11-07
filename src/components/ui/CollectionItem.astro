@@ -5,10 +5,16 @@ import type { CollectionItem } from '@/data/collection';
 interface Props {
   item: CollectionItem;
   mirrored?: boolean;
+  delay?: number;
   class?: string;
 }
 
-const { item, mirrored = false, class: className } = Astro.props;
+const {
+  item,
+  mirrored = false,
+  delay = 0,
+  class: className,
+} = Astro.props;
 ---
 
 <article
@@ -17,6 +23,8 @@ const { item, mirrored = false, class: className } = Astro.props;
     mirrored && 'collection-item--mirrored',
     className,
   ]}
+  data-reveal
+  style={`--reveal-delay: ${delay}ms`}
 >
   <div class="collection-item__media">
     <Picture

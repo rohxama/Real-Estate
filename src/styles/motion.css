@@ -1,0 +1,86 @@
+/* ==========================================================================
+   MOTION
+   Scroll reveals and one-time entrance effects.
+   Everything is opt-in through `html.reveal-ready` (added by the reveal
+   module), so content stays visible when JavaScript is unavailable. The
+   hidden state only exists when the visitor has not asked for reduced motion.
+
+   Reveals use an animation rather than a transition so they never replace a
+   component's own transition list (buttons, links and accordions keep their
+   hover behaviour).
+   ========================================================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+  html.reveal-ready [data-reveal] {
+    opacity: 0;
+    translate: 0 1.25rem;
+  }
+
+  html.reveal-ready [data-reveal].is-revealed {
+    opacity: 1;
+    translate: 0 0;
+    animation: reveal-in var(--duration-slow) var(--ease-out)
+      var(--reveal-delay, 0ms) backwards;
+  }
+
+  /* Media enters with a very slight scale so images resolve rather than pop. */
+  html.reveal-ready [data-reveal="media"] {
+    opacity: 0;
+    translate: 0 1.5rem;
+    scale: 0.985;
+  }
+
+  html.reveal-ready [data-reveal="media"].is-revealed {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+    animation: reveal-media-in var(--duration-slow) var(--ease-out)
+      var(--reveal-delay, 0ms) backwards;
+  }
+
+  @keyframes reveal-in {
+    from {
+      opacity: 0;
+      translate: 0 1.25rem;
+    }
+
+    to {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+
+  @keyframes reveal-media-in {
+    from {
+      opacity: 0;
+      translate: 0 1.5rem;
+      scale: 0.985;
+    }
+
+    to {
+      opacity: 1;
+      translate: 0 0;
+      scale: 1;
+    }
+  }
+}
+
+/* Safety net: any transition or animation that is not already gated by a
+   no-preference query collapses to its end state when reduced motion is
+   requested. Native smooth scrolling is also turned off. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+}
