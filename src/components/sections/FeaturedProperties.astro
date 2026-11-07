@@ -69,7 +69,10 @@ import { featuredProperties } from '@/data/properties';
     .properties__head > :global(.properties__link) {
       padding-block-end: 0;
     }
+  }
 
+  /* Tablets keep the two-up card rhythm; only phones stack the grid. */
+  @media (max-width: 40rem) {
     .properties__grid {
       grid-template-columns: minmax(0, 1fr);
       row-gap: var(--space-7);

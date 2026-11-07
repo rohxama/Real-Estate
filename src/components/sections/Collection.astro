@@ -85,7 +85,8 @@ import { collectionItems } from '@/data/collection';
     }
   }
 
-  @media (max-width: 48rem) {
+  /* Keep the paired collection rhythm on tablets; stack below 640 px. */
+  @media (max-width: 40rem) {
     .collection__grid {
       grid-template-columns: minmax(0, 1fr);
       row-gap: var(--space-5);

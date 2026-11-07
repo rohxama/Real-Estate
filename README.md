@@ -8,9 +8,9 @@ closing CTA and an oversized footer wordmark.
 
 > **Status:** complete single-page build. The design system, header, hero,
 > about, featured properties, services, collection, FAQ, CTA and footer are
-> implemented and validated from 320 px to 1440 px. Original photography and
-> final copy remain pending client inputs; every replacement is documented
-> below.
+> implemented and validated from 320 px to 1920 px, including touch-target and
+> coarse-pointer checks. Original photography and final copy remain pending
+> client inputs; every replacement is documented below.
 
 ---
 
@@ -299,6 +299,11 @@ viewport, accent call-to-action right.
 | Call to action | `Button` size `xs` — 12 × 20 px padding, 10 px label, pill radius, arrow icon |
 | Sticky / fixed | None in the reference; the header scrolls with the page |
 
+At ≤ 768 px the primary list collapses into the menu toggle. The standalone CTA
+stays beside the toggle from 601–768 px, then moves into the panel at ≤ 600 px;
+this prevents the centred wordmark from colliding with the CTA on 481–600 px
+screens while keeping the action available one tap away.
+
 ### Section anchors
 
 Navigation targets canonical section IDs on the single-page layout:
@@ -412,8 +417,8 @@ legibility.
 - The caption is a single baseline row: name left in Inter medium, price right
   in muted Bodoni-style numerals (`numeric` utility).
 - `Explore all properties →` is a `LinkArrow` aligned to the heading baseline.
-- ≤ 768 px the grid drops to one column and loses the stagger, matching the
-  reference's stated responsive assumption.
+- 641–768 px keeps the two-up staggered rhythm at ≈ 337 px per card; ≤ 640 px
+  the grid drops to one column and loses the stagger.
 - `Westmere House` `$1,500,000` and `Exeter House` `$1,200,000` are read from
   the reference. `Alder House` and `Marlow Estate` and their prices are
   documented placeholders.
@@ -447,8 +452,9 @@ placeholders; the reference only shows row `01` expanded.
   additional listings to fill a carousel would break copy fidelity, so the
   complete known set is shown as a static grid. The interaction can be restored
   when more inventory is supplied.
-- ≤ 1024 px the header stacks; ≤ 768 px the grid becomes a single column and
-  every row returns to thumbnail-left / text-right.
+- ≤ 1024 px the header stacks; 641–768 px keeps the two-column collection grid;
+  ≤ 640 px it becomes a single column and every row returns to
+  thumbnail-left / text-right.
 - Names are from the reference; locations and specifications are placeholders.
 
 ### FAQ
@@ -471,8 +477,9 @@ placeholders; the reference only shows row `01` expanded.
   (phone, email, studio, Instagram).
 - The image is a 2.05:1 rounded plate with a soft shadow, matching the
   reference's symmetrical classical villa and lawn.
-- ≤ 768 px the content stacks and the image retains a wide crop; ≤ 480 px the
-  metadata becomes a single column.
+- ≤ 1024 px the content stacks and the image retains a wide 2.2:1 crop; ≤ 768 px
+  it narrows to 1.8:1, ≤ 480 px to 1.5:1 and the metadata becomes a single
+  column.
 
 Phone, email, studio address, the button label and the Instagram link are
 placeholders.
@@ -487,17 +494,66 @@ placeholders.
 - The brand spelling is inferred from the site name rather than the cropped
   glyphs; confirm with the client if the wordmark differs.
 
-### Responsive summary
+### Responsive design
 
-| Breakpoint | Behaviour |
+The layout is designed from the desktop reference down, but every breakpoint
+introduces a deliberate reflow rather than shrinking the desktop canvas.
+
+| Reflow point | Range | What changes |
+|---|---|---|
+| Desktop | ≥ 1025 px | Reference composition unchanged: 1360 px container, fluid gutters, 96 px H1, two-up property and collection grids, split about/CTA/FAQ |
+| Tablet landscape | 769–1024 px | Hero text band and split sections stack; search becomes a 2 × 2 field card; collection header stacks; desktop nav remains |
+| Tablet portrait | 641–768 px | Mobile menu; hero photograph crops to 1.45:1; featured and collection stay two-up; service copy and panorama stack |
+| Large phone | 481–640 px | Single-column featured and collection grids; 1.2:1 hero; header CTA hidden at ≤ 600 px; two-column CTA metadata |
+| Phone | 321–480 px | Type scale tightens while keeping the two-line lockup; CTA metadata single column; footer wordmark scales |
+| Small phone | ≤ 320 px | Final 2.1 rem headline step; spec stacks and metadata retain their hierarchy |
+
+#### Key adaptations
+
+- **Header / navigation** — three-zone desktop grid preserved; the menu
+  collapses at 768 px. The CTA stays beside the toggle until 600 px, then moves
+  into the scrollable panel so the centred brand never collides with it.
+- **Hero** — the split headline/meta band stacks at 1024 px; the photograph
+  keeps its reference 2.35:1 crop on desktop, moves to 1.45:1 at 768 px and
+  1.2:1 at 480 px. The search card changes from a single row to a 2 × 2 grid
+  with a full-width submit.
+- **Images** — every `<Picture>` has AVIF/WebP sources, a JPEG fallback and a
+  `sizes` value that matches its rendered width at each breakpoint. The hero is
+  eager/high priority; all below-fold imagery is lazy and async.
+- **Text** — display headings use `clamp()` with explicit small-phone steps;
+  body copy is capped at 62 ch (CTA) / 58 ch (FAQ answers, tablet service copy)
+  and hero copy at 52 ch so line length stays comfortable on wide tablets.
+- **Grids** — featured and collection keep their paired rhythm through 768 px
+  (641 px minimum) and stack only on phones; the four-field search, CTA
+  metadata and spec stacks reflow independently of the main section grids.
+- **Footer** — the oversized wordmark scales with `clamp(3.5rem, 13.5vw, 13.5rem)`
+  and remains intentionally clipped by `overflow: hidden`; the document itself
+  never overflows.
+
+#### Touch and input
+
+- `@media (pointer: coarse)` adds 44 px minimum height to every button and
+  native search select, and expands the hit areas of the brand, desktop nav
+  links, link arrows and CTA contact links with pseudo-elements. The visible
+  boxes keep the reference proportions.
+- Mobile nav rows have a 44 px minimum height and the panel is capped at
+  `100svh − header` with `overflow-y: auto` and `overscroll-behavior: contain`,
+  so it remains usable on short landscape phones.
+- Verified on 390 × 844, 390 × 667, 667 × 375 (landscape), 844 × 390 and
+  320 × 568: the panel and CTA stay reachable at every height.
+
+#### Responsive validation
+
+| Check | Result |
 |---|---|
-| 1440 / 1280 px | Full reference composition; 1360 px container, fluid gutters |
-| 1024 px | About collage compresses, collection header stacks, split sections keep their two-column headings |
-| 768 px | Mobile navigation, single-column about/featured/collection/CTA, stacked service panels, scaled footer wordmark |
-| 480–320 px | Headings scale down but keep the italic second half; metadata and spec stacks reflow; footer remains edge-to-edge |
-
-Validated at 1440, 1280, 1024, 768, 480, 390, 360 and 320 px with no horizontal
-overflow.
+| Viewport sweep | 1920, 1600, 1440, 1280, 1024, 820, 768, 480, 430, 390, 375, 360, 320 |
+| Horizontal overflow | 0 px at every viewport; only the intentionally clipped footer wordmark exceeds the box |
+| Console / page errors | 0 |
+| Header sweep | 320, 360, 375, 390, 430, 480, 481, 500, 560, 600, 601, 620, 640, 700, 767, 768, 769, 780, 800, 850, 900, 950, 960, 961, 1000, 1024, 1100, 1200 — no overlap; minimum brand/actions gap 21 px at 610 px |
+| Touch probes | brand, nav links, link arrows and CTA phone/email/Instagram links all respond 10–14 px above and below their visible boxes (≥ 44 px effective target) |
+| Reveals | 30 / 30 targets revealed on desktop and mobile |
+| CLS | ≈ 0.0021 after a full-page scroll with reveals |
+| Build | 0 errors, 0 warnings, 0 hints |
 
 ### Interaction and accessibility
 
@@ -580,7 +636,8 @@ fit the layout and must be confirmed before launch:
 | Check | Result |
 |---|---|
 | `npm run build` (`astro check` + static build) | 0 errors, 0 warnings, 0 hints |
-| Responsive | 1440 / 1280 / 1024 / 768 / 480 / 390 / 360 / 320 px, no horizontal overflow |
+| Responsive | 1920 / 1600 / 1440 / 1280 / 1024 / 820 / 768 / 480 / 430 / 390 / 375 / 360 / 320 px, no horizontal overflow |
+| Touch targets | 44 px effective areas on coarse pointers; header, nav, link arrows and CTA contact links included |
 | Console / page errors | none |
 | CLS (desktop and mobile, full-page scroll) | ≈ 0.002 |
 | Accordions | one open at a time, Enter toggles, `+` / `−` swap, works without JS |
@@ -599,6 +656,12 @@ fit the layout and must be confirmed before launch:
   known; the static grid is complete for that set.
 - Stock photography replaces unsupplied originals; the crops, subjects and
   palette are curated matches, not the reference photographs.
+- On phones the search card is ≈ 320 px tall because every native select gets a
+  44 px tap height. This intentionally favours touch accuracy over compactness;
+  the card still clears the fold on a 390 × 844 device.
+- Desktop hit boxes remain visually compact (11 px labels, 27 px brand). The
+  44 px touch areas are invisible pseudo-element expansions and only apply to
+  coarse pointers, so mouse layouts are unchanged.
 
 ---
 

@@ -322,4 +322,18 @@ const fields = [
       padding-inline-start: 1rem;
     }
   }
+
+  /* Touch targets: keep the visuals but expand the radio tabs to 44 px and
+     give the native selects a full-height tap area. */
+  @media (pointer: coarse) and (max-width: 64rem) {
+    .search__tab::before {
+      content: "";
+      position: absolute;
+      inset: -1rem 0;
+    }
+
+    .search__field select {
+      min-height: 2.75rem;
+    }
+  }
 </style>

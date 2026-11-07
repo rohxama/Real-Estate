@@ -134,6 +134,22 @@ import signatureHome from '@/assets/images/cta/signature-home.jpg';
     color: var(--color-accent);
   }
 
+  /* Keep the compact inline contact lines but give touch users a 44 px target. */
+  @media (pointer: coarse) {
+    .cta__meta-item a {
+      position: relative;
+    }
+
+    .cta__meta-item a::before {
+      content: "";
+      position: absolute;
+      inset-inline: -0.35rem;
+      inset-block-start: 50%;
+      height: 2.75rem;
+      transform: translateY(-50%);
+    }
+  }
+
   .cta__media {
     overflow: hidden;
     aspect-ratio: 2.05 / 1;
@@ -153,6 +169,10 @@ import signatureHome from '@/assets/images/cta/signature-home.jpg';
     .cta__layout {
       grid-template-columns: minmax(0, 1fr);
       gap: var(--space-7);
+    }
+
+    .cta__copy {
+      max-width: 62ch;
     }
 
     .cta__media {

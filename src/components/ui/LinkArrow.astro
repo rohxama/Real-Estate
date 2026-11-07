@@ -47,4 +47,20 @@ const { href, delay = 0, class: className } = Astro.props;
       transform: translateX(3px);
     }
   }
+
+  /* Keep the 11 px label but give coarse pointers a 44 px tall target. */
+  @media (pointer: coarse) {
+    .link-arrow {
+      position: relative;
+    }
+
+    .link-arrow::before {
+      content: "";
+      position: absolute;
+      inset-inline: 0;
+      inset-block-start: 50%;
+      height: 2.75rem;
+      transform: translateY(-50%);
+    }
+  }
 </style>

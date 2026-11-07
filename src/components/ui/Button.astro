@@ -68,6 +68,13 @@ const Tag = href ? 'a' : 'button';
     }
   }
 
+  /* Touch devices get a 44 px pill without changing the desktop proportions. */
+  @media (pointer: coarse) {
+    .btn {
+      min-height: 2.75rem;
+    }
+  }
+
   .btn--md {
     padding: 0.9rem 1.5rem;
   }
