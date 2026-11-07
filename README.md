@@ -6,8 +6,8 @@ and photography-led sections: hero search, brand statement, featured
 properties, a numbered services accordion, a premium-estates collection, FAQ,
 closing CTA and an oversized footer wordmark.
 
-> **Status:** design system complete. Page sections are implemented in the next
-> stage; the current home page is a temporary scaffold.
+> **Status:** design system and site header complete. Page sections are
+> implemented in the next stage; the current home page is a temporary scaffold.
 
 ---
 
@@ -76,8 +76,8 @@ npm run preview
 │   │   ├── fonts/            # reserved for licensed original woff2 files
 │   │   └── images/           # imported through Astro's image pipeline
 │   ├── components/
-│   │   ├── layout/           # Container and layout primitives
-│   │   └── ui/               # Button, IconButton, LinkArrow, Icon, Eyebrow
+│   │   ├── layout/           # Container, Header
+│   │   └── ui/               # Button, IconButton, LinkArrow, Icon, Eyebrow, BrandMark
 │   ├── data/                 # typed content (site metadata, listings, FAQ)
 │   ├── layouts/
 │   │   └── BaseLayout.astro  # document shell, SEO meta, fonts, global styles
@@ -176,11 +176,56 @@ Families sit behind single tokens, so replacing them later is a one-line change.
 - **Image ratios:** `--ratio-hero`, `--ratio-wide`, `--ratio-landscape`,
   `--ratio-portrait`, `--ratio-thumb`, `--ratio-square`; use the matching
   `.ratio-*` class on `.media` so `object-fit: cover` keeps the reference crop.
-- **Primitives:** `Button` (primary/outline/inverse, sm/md), `IconButton`
-  (outline/filled/inverse), `LinkArrow`, `Eyebrow`, `Icon`, `Container`
-  (default/narrow/wide/flush).
+- **Primitives:** `Button` (primary/outline/inverse, xs/sm/md), `IconButton`
+  (outline/filled/inverse), `LinkArrow`, `Eyebrow`, `Icon`, `BrandMark`,
+  `Container` (default/narrow/wide/flush).
 - **Motion:** restrained `--ease-out` transitions; all animation is disabled
   under `prefers-reduced-motion`.
+
+---
+
+## Header and navigation
+
+The header is a transparent, non-sticky bar over the ivory field, laid out as a
+three-zone grid: primary navigation left, brand lockup optically centred in the
+viewport, accent call-to-action right.
+
+| Property | Value |
+|---|---|
+| Height | 80 px desktop (`--header-height`), 64 px ≤ 768 px |
+| Background | Transparent — the page field shows through |
+| Brand | Spiral monogram SVG at 27 px + lowercase Bodoni Moda `estatia`, 22 px / 0.18em tracking |
+| Primary links | `Home`, `Property`, `About us`, `Contact us`; 11 px uppercase Inter, 0.12em tracking |
+| Link gap | `clamp(20px, 2vw, 28px)`; 10 px type and a 12 px gap at 769–960 px to keep a single line |
+| Active / hover | Accent colour plus a hairline underline that wipes in from the left |
+| Call to action | `Button` size `xs` — 12 × 20 px padding, 10 px label, pill radius, arrow icon |
+| Sticky / fixed | None in the reference; the header scrolls with the page |
+
+### Section anchors
+
+Navigation targets canonical section IDs on the single-page layout. The
+sections themselves arrive in later stages, so the hashes resolve once those
+sections land:
+
+| Label | Target |
+|---|---|
+| Home | `/` (site base) |
+| Property | `#properties` |
+| About us | `#about` |
+| Contact us | `#contact` |
+
+### Mobile navigation
+
+Below 768 px the primary list and the standalone CTA collapse into a circular
+menu toggle. The menu is a native `<details>` disclosure, so it opens without
+JavaScript; `src/scripts/navigation.ts` adds close-on-navigate, Escape (focus
+returns to the toggle), outside-click and desktop-resize handling, and keeps the
+toggle's `aria-label` in sync. The panel is full-width below the bar and repeats
+the four links plus the accent CTA.
+
+All navigation is keyboard operable with the global `:focus-visible` ring;
+`Home` carries `aria-current="page"` so the active state is exposed to assistive
+technology. The brand lockup is an anchor back to the site root.
 
 ---
 
@@ -230,7 +275,8 @@ These do not block development but must be resolved before launch:
 - final copy, listing data and FAQ answers
 - confirmation that Bodoni Moda + Inter are acceptable final typefaces (or
   licensed originals supplied)
-- brand monogram as SVG
+- confirmation that the in-code spiral monogram matches the original mark
+  (no vector asset was supplied)
 - footer wordmark spelling confirmation
 
 ## Licence

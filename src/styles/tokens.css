@@ -95,6 +95,7 @@
   --container-narrow: 46rem; /* long-form copy */
   --container-wide: 100rem;
   --gutter: clamp(1.25rem, 4vw, 4rem);
+  --header-height: 5rem;
 
   --grid-columns: 12;
   --grid-gap: clamp(1rem, 2.2vw, 2.5rem);
@@ -171,4 +172,10 @@
   --z-header: 50;
   --z-overlay: 80;
   --z-modal: 100;
+}
+
+@media (max-width: 48rem) {
+  :root {
+    --header-height: 4rem;
+  }
 }

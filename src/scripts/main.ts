@@ -4,4 +4,6 @@
  */
 document.documentElement.classList.add('js');
 
+import './navigation';
+
 export {};

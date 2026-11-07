@@ -58,213 +58,215 @@ const ratios = [
   noindex
 >
   <main id="main-content" class="ds">
-    <Container width="wide" class="ds__inner">
-      <header class="ds__header">
-        <Eyebrow>Internal reference</Eyebrow>
-        <h1 class="heading-1 ds__title">Design <em>system.</em></h1>
-        <p class="body-text">
-          Tokens and primitives derived from the reference capture. This page is
-          not indexed and exists to verify the system before section work.
-        </p>
-      </header>
-
-      <!-- Palette -->
-      <section class="ds__section" aria-labelledby="palette">
-        <div class="ds__section-head">
-          <h2 class="heading-3" id="palette">Colour</h2>
-          <p class="caption">One accent only. No decorative gradients on UI.</p>
-        </div>
-        <ul class="swatches">
-          {palette.map((colour) => (
-            <li class="swatch">
-              <span
-                class="swatch__chip"
-                style={`background: var(${colour.token})`}
-                aria-hidden="true"
-              />
-              <span class="swatch__name">{colour.label}</span>
-              <code class="swatch__token">{colour.token}</code>
-              <span class="swatch__value">{colour.value}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <!-- Typography -->
-      <section class="ds__section" aria-labelledby="type">
-        <div class="ds__section-head">
-          <h2 class="heading-3" id="type">Typography</h2>
-          <p class="caption">
-            Bodoni Moda Variable (display) · Inter Variable (body)
+    <Container width="wide">
+      <div class="ds__inner">
+        <header class="ds__header">
+          <Eyebrow>Internal reference</Eyebrow>
+          <h1 class="heading-1 ds__title">Design <em>system.</em></h1>
+          <p class="body-text">
+            Tokens and primitives derived from the reference capture. This page is
+            not indexed and exists to verify the system before section work.
           </p>
-        </div>
+        </header>
 
-        <div class="type-list">
-          {typeScale.map((item) => (
+        <!-- Palette -->
+        <section class="ds__section" aria-labelledby="palette">
+          <div class="ds__section-head">
+            <h2 class="heading-3" id="palette">Colour</h2>
+            <p class="caption">One accent only. No decorative gradients on UI.</p>
+          </div>
+          <ul class="swatches">
+            {palette.map((colour) => (
+              <li class="swatch">
+                <span
+                  class="swatch__chip"
+                  style={`background: var(${colour.token})`}
+                  aria-hidden="true"
+                />
+                <span class="swatch__name">{colour.label}</span>
+                <code class="swatch__token">{colour.token}</code>
+                <span class="swatch__value">{colour.value}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <!-- Typography -->
+        <section class="ds__section" aria-labelledby="type">
+          <div class="ds__section-head">
+            <h2 class="heading-3" id="type">Typography</h2>
+            <p class="caption">
+              Bodoni Moda Variable (display) · Inter Variable (body)
+            </p>
+          </div>
+
+          <div class="type-list">
+            {typeScale.map((item) => (
+              <div class="type-row">
+                <div class="type-row__meta">
+                  <span class="label">{item.name}</span>
+                  <span class="type-row__spec">{item.meta}</span>
+                </div>
+                <p class={item.cls}>Crafted for Exceptional <em>Living</em></p>
+              </div>
+            ))}
+
             <div class="type-row">
               <div class="type-row__meta">
-                <span class="label">{item.name}</span>
-                <span class="type-row__spec">{item.meta}</span>
+                <span class="label">Eyebrow</span>
+                <span class="type-row__spec">11px · 500 · 0.18em · uppercase</span>
               </div>
-              <p class={item.cls}>Crafted for Exceptional <em>Living</em></p>
+              <Eyebrow>Residential Designs</Eyebrow>
             </div>
-          ))}
 
-          <div class="type-row">
-            <div class="type-row__meta">
-              <span class="label">Eyebrow</span>
-              <span class="type-row__spec">11px · 500 · 0.18em · uppercase</span>
+            <div class="type-row">
+              <div class="type-row__meta">
+                <span class="label">Lead</span>
+                <span class="type-row__spec">16–18px · 1.7 · secondary ink</span>
+              </div>
+              <p class="lead">
+                Discover the exceptional, where architecture meets craftsmanship
+                and every detail is considered.
+              </p>
             </div>
-            <Eyebrow>Residential Designs</Eyebrow>
+
+            <div class="type-row">
+              <div class="type-row__meta">
+                <span class="label">Body</span>
+                <span class="type-row__spec">15px · 1.7 · muted</span>
+              </div>
+              <p class="body-text">
+                A considered collection of waterfront estates, private residences
+                and architectural homes, presented with clarity.
+              </p>
+            </div>
+
+            <div class="type-row">
+              <div class="type-row__meta">
+                <span class="label">Caption / numeric</span>
+                <span class="type-row__spec">13px · tabular figures</span>
+              </div>
+              <p class="caption numeric">$1,500,000 · 5 beds · 4 baths</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Buttons and links -->
+        <section class="ds__section" aria-labelledby="controls">
+          <div class="ds__section-head">
+            <h2 class="heading-3" id="controls">Buttons, links and icons</h2>
+            <p class="caption">Pill buttons, circular icon controls, arrow links.</p>
           </div>
 
-          <div class="type-row">
-            <div class="type-row__meta">
-              <span class="label">Lead</span>
-              <span class="type-row__spec">16–18px · 1.7 · secondary ink</span>
-            </div>
-            <p class="lead">
-              Discover the exceptional, where architecture meets craftsmanship
-              and every detail is considered.
-            </p>
+          <div class="ds__row">
+            <Button>Search Now</Button>
+            <Button variant="outline">View all</Button>
+            <Button size="sm">Contact Us</Button>
+            <LinkArrow href="#">Explore all properties</LinkArrow>
           </div>
 
-          <div class="type-row">
-            <div class="type-row__meta">
-              <span class="label">Body</span>
-              <span class="type-row__spec">15px · 1.7 · muted</span>
-            </div>
-            <p class="body-text">
-              A considered collection of waterfront estates, private residences
-              and architectural homes, presented with clarity.
-            </p>
+          <div class="ds__row ds__row--dark">
+            <Button variant="inverse">Book a visit</Button>
+            <IconButton label="Next property" variant="inverse">
+              <Icon name="arrow-right" size={18} />
+            </IconButton>
           </div>
 
-          <div class="type-row">
-            <div class="type-row__meta">
-              <span class="label">Caption / numeric</span>
-              <span class="type-row__spec">13px · tabular figures</span>
-            </div>
-            <p class="caption numeric">$1,500,000 · 5 beds · 4 baths</p>
+          <div class="ds__row">
+            <IconButton label="Previous" variant="outline">
+              <Icon name="chevron-left" size={18} />
+            </IconButton>
+            <IconButton label="Next" variant="outline">
+              <Icon name="chevron-right" size={18} />
+            </IconButton>
+            <IconButton label="Expand" variant="filled">
+              <Icon name="plus" size={18} />
+            </IconButton>
+            <IconButton label="Collapse" variant="outline" size="sm">
+              <Icon name="minus" size={16} />
+            </IconButton>
+
+            <span class="ds__icons">
+              {['search', 'arrow-up-right', 'chevron-down', 'check', 'star', 'users'].map((name) => (
+                <Icon name={name as any} size={18} />
+              ))}
+            </span>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- Buttons and links -->
-      <section class="ds__section" aria-labelledby="controls">
-        <div class="ds__section-head">
-          <h2 class="heading-3" id="controls">Buttons, links and icons</h2>
-          <p class="caption">Pill buttons, circular icon controls, arrow links.</p>
-        </div>
-
-        <div class="ds__row">
-          <Button>Search Now</Button>
-          <Button variant="outline">View all</Button>
-          <Button size="sm">Contact Us</Button>
-          <LinkArrow href="#">Explore all properties</LinkArrow>
-        </div>
-
-        <div class="ds__row ds__row--dark">
-          <Button variant="inverse">Book a visit</Button>
-          <IconButton label="Next property" variant="inverse">
-            <Icon name="arrow-right" size={18} />
-          </IconButton>
-        </div>
-
-        <div class="ds__row">
-          <IconButton label="Previous" variant="outline">
-            <Icon name="chevron-left" size={18} />
-          </IconButton>
-          <IconButton label="Next" variant="outline">
-            <Icon name="chevron-right" size={18} />
-          </IconButton>
-          <IconButton label="Expand" variant="filled">
-            <Icon name="plus" size={18} />
-          </IconButton>
-          <IconButton label="Collapse" variant="outline" size="sm">
-            <Icon name="minus" size={16} />
-          </IconButton>
-
-          <span class="ds__icons">
-            {['search', 'arrow-up-right', 'chevron-down', 'check', 'star', 'users'].map((name) => (
-              <Icon name={name as any} size={18} />
+        <!-- Spacing -->
+        <section class="ds__section" aria-labelledby="spacing">
+          <div class="ds__section-head">
+            <h2 class="heading-3" id="spacing">Spacing</h2>
+            <p class="caption">4px base scale · sections use 72–120px.</p>
+          </div>
+          <ul class="spacers">
+            {spacers.map((n) => (
+              <li class="spacer">
+                <span class="spacer__bar" style={`width: var(--space-${n})`} />
+                <span class="spacer__meta">--space-{n}</span>
+              </li>
             ))}
-          </span>
-        </div>
-      </section>
+          </ul>
+        </section>
 
-      <!-- Spacing -->
-      <section class="ds__section" aria-labelledby="spacing">
-        <div class="ds__section-head">
-          <h2 class="heading-3" id="spacing">Spacing</h2>
-          <p class="caption">4px base scale · sections use 72–120px.</p>
-        </div>
-        <ul class="spacers">
-          {spacers.map((n) => (
-            <li class="spacer">
-              <span class="spacer__bar" style={`width: var(--space-${n})`} />
-              <span class="spacer__meta">--space-{n}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <!-- Shape -->
-      <section class="ds__section" aria-labelledby="shape">
-        <div class="ds__section-head">
-          <h2 class="heading-3" id="shape">Radius and elevation</h2>
-          <p class="caption">Soft radii; shadow reserved for floating surfaces.</p>
-        </div>
-        <div class="ds__row">
-          {radii.map((radius) => (
-            <div class="radius">
-              <div class="radius__box" style={`border-radius: var(${radius.token})`} />
-              <span class="label">{radius.label}</span>
+        <!-- Shape -->
+        <section class="ds__section" aria-labelledby="shape">
+          <div class="ds__section-head">
+            <h2 class="heading-3" id="shape">Radius and elevation</h2>
+            <p class="caption">Soft radii; shadow reserved for floating surfaces.</p>
+          </div>
+          <div class="ds__row">
+            {radii.map((radius) => (
+              <div class="radius">
+                <div class="radius__box" style={`border-radius: var(${radius.token})`} />
+                <span class="label">{radius.label}</span>
+              </div>
+            ))}
+          </div>
+          <div class="ds__row">
+            <div class="shadow shadow--soft">
+              <span class="label">--shadow-soft</span>
             </div>
-          ))}
-        </div>
-        <div class="ds__row">
-          <div class="shadow shadow--soft">
-            <span class="label">--shadow-soft</span>
+            <div class="shadow shadow--float">
+              <span class="label">--shadow-float</span>
+            </div>
           </div>
-          <div class="shadow shadow--float">
-            <span class="label">--shadow-float</span>
+        </section>
+
+        <!-- Grid -->
+        <section class="ds__section" aria-labelledby="grid">
+          <div class="ds__section-head">
+            <h2 class="heading-3" id="grid">Grid</h2>
+            <p class="caption">12 columns · 1360px container · fluid gutters.</p>
           </div>
-        </div>
-      </section>
+          <div class="grid grid--12 grid-demo">
+            {Array.from({ length: 12 }).map(() => <span class="grid-demo__cell" />)}
+          </div>
+          <div class="grid grid--2 grid-demo">
+            <span class="grid-demo__cell grid-demo__cell--tall" />
+            <span class="grid-demo__cell grid-demo__cell--tall" />
+          </div>
+        </section>
 
-      <!-- Grid -->
-      <section class="ds__section" aria-labelledby="grid">
-        <div class="ds__section-head">
-          <h2 class="heading-3" id="grid">Grid</h2>
-          <p class="caption">12 columns · 1360px container · fluid gutters.</p>
-        </div>
-        <div class="grid grid--12 grid-demo">
-          {Array.from({ length: 12 }).map(() => <span class="grid-demo__cell" />)}
-        </div>
-        <div class="grid grid--2 grid-demo">
-          <span class="grid-demo__cell grid-demo__cell--tall" />
-          <span class="grid-demo__cell grid-demo__cell--tall" />
-        </div>
-      </section>
-
-      <!-- Ratios -->
-      <section class="ds__section" aria-labelledby="ratios">
-        <div class="ds__section-head">
-          <h2 class="heading-3" id="ratios">Image proportions</h2>
-          <p class="caption">
-            Cropping follows the reference; imagery is inserted at implementation.
-          </p>
-        </div>
-        <div class="ratios">
-          {ratios.map((ratio) => (
-            <figure class="ratios__item">
-              <div class={`media ${ratio.cls}`} />
-              <figcaption class="label">{ratio.label}</figcaption>
-            </figure>
-          ))}
-        </div>
-      </section>
+        <!-- Ratios -->
+        <section class="ds__section" aria-labelledby="ratios">
+          <div class="ds__section-head">
+            <h2 class="heading-3" id="ratios">Image proportions</h2>
+            <p class="caption">
+              Cropping follows the reference; imagery is inserted at implementation.
+            </p>
+          </div>
+          <div class="ratios">
+            {ratios.map((ratio) => (
+              <figure class="ratios__item">
+                <div class={`media ${ratio.cls}`} />
+                <figcaption class="label">{ratio.label}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+      </div>
     </Container>
   </main>
 </BaseLayout>

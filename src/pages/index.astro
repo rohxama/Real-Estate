@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/layout/Header.astro';
 import Container from '@/components/layout/Container.astro';
 import Button from '@/components/ui/Button.astro';
 import Eyebrow from '@/components/ui/Eyebrow.astro';
@@ -7,15 +8,19 @@ import { site } from '@/data/site';
 ---
 
 <BaseLayout title={site.title} description={site.description}>
+  <Header current="" />
+
   <main id="main-content" class="scaffold">
-    <Container class="scaffold__inner">
-      <Eyebrow>Project setup</Eyebrow>
-      <h1 class="display scaffold__title">Foundation <em>ready.</em></h1>
-      <p class="body-text scaffold__copy">
-        The design system is in place. Page sections will be implemented in the
-        next stage.
-      </p>
-      <Button>Placeholder action</Button>
+    <Container>
+      <div class="scaffold__inner">
+        <Eyebrow>Project setup</Eyebrow>
+        <h1 class="display scaffold__title">Foundation <em>ready.</em></h1>
+        <p class="body-text scaffold__copy">
+          The header and navigation are in place. Page sections follow in the
+          next stage.
+        </p>
+        <Button>Placeholder action</Button>
+      </div>
     </Container>
   </main>
 </BaseLayout>
@@ -23,7 +28,7 @@ import { site } from '@/data/site';
 <style>
   .scaffold {
     display: grid;
-    min-height: 100svh;
+    min-height: calc(100svh - var(--header-height));
     place-items: center;
   }
 
