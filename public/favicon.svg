@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Estatia">
+  <circle cx="32" cy="32" r="30" fill="#5a1d16" />
+  <path
+    d="M23 19h20M23 19v26M23 32h14M23 45h20"
+    fill="none"
+    stroke="#fbf6ec"
+    stroke-width="3"
+    stroke-linecap="round"
+  />
+</svg>
