@@ -10,7 +10,11 @@ export default defineConfig({
   base: '/Real-Estate',
   trailingSlash: 'always',
   output: 'static',
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes('/design-system/'),
+    }),
+  ],
   build: {
     inlineStylesheets: 'auto',
   },

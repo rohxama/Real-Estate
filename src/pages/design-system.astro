@@ -1,0 +1,473 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/layout/Container.astro';
+import Button from '@/components/ui/Button.astro';
+import IconButton from '@/components/ui/IconButton.astro';
+import Eyebrow from '@/components/ui/Eyebrow.astro';
+import Icon from '@/components/ui/Icon.astro';
+import LinkArrow from '@/components/ui/LinkArrow.astro';
+
+const palette = [
+  { token: '--color-bg', value: '#faf7f1', label: 'Page background' },
+  { token: '--color-bg-alt', value: '#f3eee4', label: 'Alternate surface' },
+  { token: '--color-surface', value: '#fffdf8', label: 'Cards / search widget' },
+  { token: '--color-img-tint', value: '#e6dccb', label: 'Image placeholder' },
+  { token: '--color-surface-bright', value: '#ffffff', label: 'Inverse hover' },
+  { token: '--color-ink', value: '#241a15', label: 'Primary text' },
+  { token: '--color-ink-soft', value: '#4a3e35', label: 'Secondary text' },
+  { token: '--color-muted', value: '#8c8177', label: 'Muted text' },
+  { token: '--color-line', value: '#e3dccf', label: 'Hairline border' },
+  { token: '--color-accent', value: '#5a1d16', label: 'Oxblood accent' },
+  { token: '--color-accent-hover', value: '#6b2a20', label: 'Accent hover' },
+  { token: '--color-accent-deep', value: '#4b1712', label: 'Open FAQ row' },
+  { token: '--color-on-accent', value: '#fbf6ec', label: 'Text on accent' },
+];
+
+const typeScale = [
+  { cls: 'display', name: 'Display', meta: 'clamp(52 → 96px) · 0.98 · −0.025em' },
+  { cls: 'heading-1', name: 'Heading 1', meta: 'clamp(40 → 72px) · 1.06' },
+  { cls: 'heading-2', name: 'Heading 2', meta: 'clamp(32 → 56px) · 1.06' },
+  { cls: 'heading-3', name: 'Heading 3', meta: 'clamp(24 → 30px) · 1.25' },
+  { cls: 'heading-4', name: 'Heading 4', meta: '20px · 1.25' },
+];
+
+const spacers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+const radii = [
+  { token: '--radius-xs', label: 'xs · 8px' },
+  { token: '--radius-sm', label: 'sm · 14px' },
+  { token: '--radius-md', label: 'md · 24px' },
+  { token: '--radius-lg', label: 'lg · 32px' },
+  { token: '--radius-xl', label: 'xl · 44px' },
+  { token: '--radius-pill', label: 'pill' },
+];
+
+const ratios = [
+  { cls: 'ratio-hero', label: 'Hero · 2.35:1' },
+  { cls: 'ratio-wide', label: 'Wide · 1.85:1' },
+  { cls: 'ratio-landscape', label: 'Landscape · 4:3' },
+  { cls: 'ratio-portrait', label: 'Portrait · 3:4' },
+  { cls: 'ratio-thumb', label: 'Thumb · 3:2' },
+  { cls: 'ratio-square', label: 'Square · 1:1' },
+];
+---
+
+<BaseLayout
+  title="Design system — Estatia"
+  description="Internal design tokens and UI primitives."
+  noindex
+>
+  <main id="main-content" class="ds">
+    <Container width="wide" class="ds__inner">
+      <header class="ds__header">
+        <Eyebrow>Internal reference</Eyebrow>
+        <h1 class="heading-1 ds__title">Design <em>system.</em></h1>
+        <p class="body-text">
+          Tokens and primitives derived from the reference capture. This page is
+          not indexed and exists to verify the system before section work.
+        </p>
+      </header>
+
+      <!-- Palette -->
+      <section class="ds__section" aria-labelledby="palette">
+        <div class="ds__section-head">
+          <h2 class="heading-3" id="palette">Colour</h2>
+          <p class="caption">One accent only. No decorative gradients on UI.</p>
+        </div>
+        <ul class="swatches">
+          {palette.map((colour) => (
+            <li class="swatch">
+              <span
+                class="swatch__chip"
+                style={`background: var(${colour.token})`}
+                aria-hidden="true"
+              />
+              <span class="swatch__name">{colour.label}</span>
+              <code class="swatch__token">{colour.token}</code>
+              <span class="swatch__value">{colour.value}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <!-- Typography -->
+      <section class="ds__section" aria-labelledby="type">
+        <div class="ds__section-head">
+          <h2 class="heading-3" id="type">Typography</h2>
+          <p class="caption">
+            Bodoni Moda Variable (display) · Inter Variable (body)
+          </p>
+        </div>
+
+        <div class="type-list">
+          {typeScale.map((item) => (
+            <div class="type-row">
+              <div class="type-row__meta">
+                <span class="label">{item.name}</span>
+                <span class="type-row__spec">{item.meta}</span>
+              </div>
+              <p class={item.cls}>Crafted for Exceptional <em>Living</em></p>
+            </div>
+          ))}
+
+          <div class="type-row">
+            <div class="type-row__meta">
+              <span class="label">Eyebrow</span>
+              <span class="type-row__spec">11px · 500 · 0.18em · uppercase</span>
+            </div>
+            <Eyebrow>Residential Designs</Eyebrow>
+          </div>
+
+          <div class="type-row">
+            <div class="type-row__meta">
+              <span class="label">Lead</span>
+              <span class="type-row__spec">16–18px · 1.7 · secondary ink</span>
+            </div>
+            <p class="lead">
+              Discover the exceptional, where architecture meets craftsmanship
+              and every detail is considered.
+            </p>
+          </div>
+
+          <div class="type-row">
+            <div class="type-row__meta">
+              <span class="label">Body</span>
+              <span class="type-row__spec">15px · 1.7 · muted</span>
+            </div>
+            <p class="body-text">
+              A considered collection of waterfront estates, private residences
+              and architectural homes, presented with clarity.
+            </p>
+          </div>
+
+          <div class="type-row">
+            <div class="type-row__meta">
+              <span class="label">Caption / numeric</span>
+              <span class="type-row__spec">13px · tabular figures</span>
+            </div>
+            <p class="caption numeric">$1,500,000 · 5 beds · 4 baths</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Buttons and links -->
+      <section class="ds__section" aria-labelledby="controls">
+        <div class="ds__section-head">
+          <h2 class="heading-3" id="controls">Buttons, links and icons</h2>
+          <p class="caption">Pill buttons, circular icon controls, arrow links.</p>
+        </div>
+
+        <div class="ds__row">
+          <Button>Search Now</Button>
+          <Button variant="outline">View all</Button>
+          <Button size="sm">Contact Us</Button>
+          <LinkArrow href="#">Explore all properties</LinkArrow>
+        </div>
+
+        <div class="ds__row ds__row--dark">
+          <Button variant="inverse">Book a visit</Button>
+          <IconButton label="Next property" variant="inverse">
+            <Icon name="arrow-right" size={18} />
+          </IconButton>
+        </div>
+
+        <div class="ds__row">
+          <IconButton label="Previous" variant="outline">
+            <Icon name="chevron-left" size={18} />
+          </IconButton>
+          <IconButton label="Next" variant="outline">
+            <Icon name="chevron-right" size={18} />
+          </IconButton>
+          <IconButton label="Expand" variant="filled">
+            <Icon name="plus" size={18} />
+          </IconButton>
+          <IconButton label="Collapse" variant="outline" size="sm">
+            <Icon name="minus" size={16} />
+          </IconButton>
+
+          <span class="ds__icons">
+            {['search', 'arrow-up-right', 'chevron-down', 'check', 'star', 'users'].map((name) => (
+              <Icon name={name as any} size={18} />
+            ))}
+          </span>
+        </div>
+      </section>
+
+      <!-- Spacing -->
+      <section class="ds__section" aria-labelledby="spacing">
+        <div class="ds__section-head">
+          <h2 class="heading-3" id="spacing">Spacing</h2>
+          <p class="caption">4px base scale · sections use 72–120px.</p>
+        </div>
+        <ul class="spacers">
+          {spacers.map((n) => (
+            <li class="spacer">
+              <span class="spacer__bar" style={`width: var(--space-${n})`} />
+              <span class="spacer__meta">--space-{n}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <!-- Shape -->
+      <section class="ds__section" aria-labelledby="shape">
+        <div class="ds__section-head">
+          <h2 class="heading-3" id="shape">Radius and elevation</h2>
+          <p class="caption">Soft radii; shadow reserved for floating surfaces.</p>
+        </div>
+        <div class="ds__row">
+          {radii.map((radius) => (
+            <div class="radius">
+              <div class="radius__box" style={`border-radius: var(${radius.token})`} />
+              <span class="label">{radius.label}</span>
+            </div>
+          ))}
+        </div>
+        <div class="ds__row">
+          <div class="shadow shadow--soft">
+            <span class="label">--shadow-soft</span>
+          </div>
+          <div class="shadow shadow--float">
+            <span class="label">--shadow-float</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Grid -->
+      <section class="ds__section" aria-labelledby="grid">
+        <div class="ds__section-head">
+          <h2 class="heading-3" id="grid">Grid</h2>
+          <p class="caption">12 columns · 1360px container · fluid gutters.</p>
+        </div>
+        <div class="grid grid--12 grid-demo">
+          {Array.from({ length: 12 }).map(() => <span class="grid-demo__cell" />)}
+        </div>
+        <div class="grid grid--2 grid-demo">
+          <span class="grid-demo__cell grid-demo__cell--tall" />
+          <span class="grid-demo__cell grid-demo__cell--tall" />
+        </div>
+      </section>
+
+      <!-- Ratios -->
+      <section class="ds__section" aria-labelledby="ratios">
+        <div class="ds__section-head">
+          <h2 class="heading-3" id="ratios">Image proportions</h2>
+          <p class="caption">
+            Cropping follows the reference; imagery is inserted at implementation.
+          </p>
+        </div>
+        <div class="ratios">
+          {ratios.map((ratio) => (
+            <figure class="ratios__item">
+              <div class={`media ${ratio.cls}`} />
+              <figcaption class="label">{ratio.label}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+    </Container>
+  </main>
+</BaseLayout>
+
+<style>
+  .ds {
+    padding-block: var(--space-8) var(--space-10);
+  }
+
+  .ds__inner {
+    display: grid;
+    gap: var(--space-9);
+  }
+
+  .ds__header {
+    max-width: 44rem;
+    padding-block-end: var(--space-6);
+    border-block-end: var(--border-hairline);
+  }
+
+  .ds__title {
+    margin-block: var(--space-4) var(--space-5);
+  }
+
+  .ds__section {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .ds__section-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding-block-end: var(--space-3);
+    border-block-end: var(--border-hairline);
+  }
+
+  .ds__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .ds__row--dark {
+    padding: var(--space-6);
+    border-radius: var(--radius-md);
+    background: var(--color-accent-deep);
+  }
+
+  .ds__icons {
+    display: inline-flex;
+    gap: var(--space-4);
+    color: var(--color-muted);
+  }
+
+  /* Palette */
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    gap: var(--space-4);
+    padding: 0;
+    list-style: none;
+  }
+
+  .swatch {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .swatch__chip {
+    height: 4.5rem;
+    margin-block-end: var(--space-2);
+    border: var(--border-hairline);
+    border-radius: var(--radius-sm);
+  }
+
+  .swatch__name {
+    font-size: var(--text-sm);
+  }
+
+  .swatch__token,
+  .swatch__value {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: var(--text-2xs);
+    color: var(--color-muted);
+  }
+
+  /* Type */
+  .type-list {
+    display: grid;
+  }
+
+  .type-row {
+    display: grid;
+    grid-template-columns: 15rem minmax(0, 1fr);
+    gap: var(--space-5);
+    align-items: baseline;
+    padding-block: var(--space-5);
+    border-block-end: var(--border-hairline);
+  }
+
+  .type-row__meta {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .type-row__spec {
+    font-size: var(--text-2xs);
+    color: var(--color-muted);
+  }
+
+  /* Spacing */
+  .spacers {
+    display: grid;
+    gap: var(--space-2);
+    padding: 0;
+    list-style: none;
+  }
+
+  .spacer {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .spacer__bar {
+    display: block;
+    height: 0.75rem;
+    background: var(--color-accent);
+    opacity: 0.85;
+  }
+
+  .spacer__meta {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: var(--text-2xs);
+    color: var(--color-muted);
+  }
+
+  /* Radius and shadow */
+  .radius {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .radius__box {
+    width: 5rem;
+    height: 5rem;
+    background: var(--color-img-tint);
+    border: var(--border-hairline);
+  }
+
+  .shadow {
+    display: grid;
+    place-items: end start;
+    width: 11rem;
+    height: 7rem;
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+  }
+
+  .shadow--soft {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .shadow--float {
+    box-shadow: var(--shadow-float);
+  }
+
+  /* Grid */
+  .grid-demo {
+    gap: var(--space-2);
+  }
+
+  .grid-demo__cell {
+    height: 3.5rem;
+    border-radius: var(--radius-xs);
+    background: var(--color-img-tint);
+  }
+
+  .grid-demo__cell--tall {
+    height: 7rem;
+  }
+
+  /* Ratios */
+  .ratios {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+    gap: var(--space-5);
+  }
+
+  .ratios__item {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  @media (max-width: 48rem) {
+    .type-row {
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
+    }
+  }
+</style>

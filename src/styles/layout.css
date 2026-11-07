@@ -1,16 +1,190 @@
+/* ==========================================================================
+   LAYOUT
+   Container, section rhythm, grid and media primitives.
+   ========================================================================== */
+
 .container {
-  width: min(100% - (var(--gutter) * 2), var(--container-width));
+  width: min(100% - (var(--gutter) * 2), var(--container-max));
   margin-inline: auto;
 }
 
-.section {
-  padding-block: var(--section-padding);
+.container--narrow {
+  max-width: var(--container-narrow);
 }
 
+.container--wide {
+  max-width: var(--container-wide);
+}
+
+.container--flush {
+  width: 100%;
+  max-width: none;
+}
+
+/* --------------------------------------------------------------------------
+   Section rhythm
+   -------------------------------------------------------------------------- */
+.section {
+  padding-block: var(--section-space);
+}
+
+.section--tight {
+  padding-block: var(--section-space-sm);
+}
+
+.section--flush-top {
+  padding-block-start: 0;
+}
+
+.section--flush-bottom {
+  padding-block-end: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Flow helpers
+   -------------------------------------------------------------------------- */
 .stack > * + * {
   margin-block-start: var(--space-4);
 }
 
+.stack--lg > * + * {
+  margin-block-start: var(--space-6);
+}
+
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.rule {
+  border: 0;
+  border-block-start: var(--border-hairline);
+}
+
+/* --------------------------------------------------------------------------
+   Grid
+   -------------------------------------------------------------------------- */
+.grid {
+  display: grid;
+  gap: var(--grid-gap);
+}
+
+.grid--2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid--4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.grid--12 {
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+}
+
+.grid--split {
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+}
+
+@media (max-width: 64rem) {
+  .grid--4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 48rem) {
+  .grid--2,
+  .grid--3,
+  .grid--4,
+  .grid--split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .grid--12 {
+    gap: var(--space-4);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Surfaces
+   -------------------------------------------------------------------------- */
+.surface {
+  background-color: var(--color-surface);
+}
+
+.surface--alt {
+  background-color: var(--color-bg-alt);
+}
+
+/* --------------------------------------------------------------------------
+   Media frames — preserve reference aspect ratios and cropping
+   -------------------------------------------------------------------------- */
+.media {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background-color: var(--color-img-tint);
+}
+
+.media > img,
+.media > picture > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.media--radius-sm {
+  border-radius: var(--radius-sm);
+}
+
+.media--radius-md {
+  border-radius: var(--radius-md);
+}
+
+.media--radius-xl {
+  border-radius: var(--radius-xl);
+}
+
+.media--scrim::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-scrim);
+  pointer-events: none;
+}
+
+.ratio-hero {
+  aspect-ratio: var(--ratio-hero);
+}
+
+.ratio-wide {
+  aspect-ratio: var(--ratio-wide);
+}
+
+.ratio-landscape {
+  aspect-ratio: var(--ratio-landscape);
+}
+
+.ratio-portrait {
+  aspect-ratio: var(--ratio-portrait);
+}
+
+.ratio-thumb {
+  aspect-ratio: var(--ratio-thumb);
+}
+
+.ratio-square {
+  aspect-ratio: var(--ratio-square);
+}
+
+/* --------------------------------------------------------------------------
+   Accessibility
+   -------------------------------------------------------------------------- */
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -27,13 +201,13 @@
   position: fixed;
   inset-block-start: var(--space-3);
   inset-inline-start: var(--space-3);
-  z-index: 100;
+  z-index: var(--z-modal);
   padding: var(--space-2) var(--space-4);
   background: var(--color-accent);
   color: var(--color-on-accent);
   border-radius: var(--radius-pill);
   font-size: var(--text-xs);
-  letter-spacing: var(--tracking-wide);
+  letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   transform: translateY(-200%);
   transition: transform var(--duration-fast) var(--ease-out);

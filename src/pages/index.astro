@@ -2,17 +2,18 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Container from '@/components/layout/Container.astro';
 import Button from '@/components/ui/Button.astro';
+import Eyebrow from '@/components/ui/Eyebrow.astro';
 import { site } from '@/data/site';
 ---
 
 <BaseLayout title={site.title} description={site.description}>
   <main id="main-content" class="scaffold">
     <Container class="scaffold__inner">
-      <p class="scaffold__eyebrow">Project setup</p>
-      <h1 class="scaffold__title">Foundation <em>ready.</em></h1>
-      <p class="scaffold__copy">
-        Tooling, structure and the production pipeline are configured. Page
-        sections will be implemented in the next stage.
+      <Eyebrow>Project setup</Eyebrow>
+      <h1 class="display scaffold__title">Foundation <em>ready.</em></h1>
+      <p class="body-text scaffold__copy">
+        The design system is in place. Page sections will be implemented in the
+        next stage.
       </p>
       <Button>Placeholder action</Button>
     </Container>
@@ -31,21 +32,11 @@ import { site } from '@/data/site';
     text-align: center;
   }
 
-  .scaffold__eyebrow {
-    margin-block-end: var(--space-4);
-    color: var(--color-muted);
-    font-size: var(--text-xs);
-    letter-spacing: var(--tracking-wide);
-    text-transform: uppercase;
-  }
-
   .scaffold__title {
-    font-size: var(--text-3xl);
+    margin-block: var(--space-4) var(--space-5);
   }
 
   .scaffold__copy {
-    max-width: 34rem;
-    margin: var(--space-5) auto var(--space-6);
-    color: var(--color-muted);
+    margin: 0 auto var(--space-6);
   }
 </style>

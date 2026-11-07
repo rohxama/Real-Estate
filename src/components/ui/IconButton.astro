@@ -1,0 +1,79 @@
+---
+interface Props {
+  label: string;
+  href?: string;
+  variant?: 'outline' | 'filled' | 'inverse';
+  size?: 'sm' | 'md';
+  class?: string;
+}
+
+const {
+  label,
+  href,
+  variant = 'outline',
+  size = 'md',
+  class: className,
+} = Astro.props;
+
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag
+  class:list={['icon-btn', `icon-btn--${variant}`, `icon-btn--${size}`, className]}
+  href={href}
+  type={href ? undefined : 'button'}
+  aria-label={label}
+>
+  <slot />
+</Tag>
+
+<style>
+  .icon-btn {
+    display: inline-grid;
+    place-items: center;
+    border: 1px solid var(--color-line);
+    border-radius: 50%;
+    color: var(--color-ink);
+    background-color: transparent;
+    transition:
+      background-color var(--duration-fast) var(--ease-out),
+      border-color var(--duration-fast) var(--ease-out),
+      color var(--duration-fast) var(--ease-out),
+      transform var(--duration-fast) var(--ease-out);
+  }
+
+  .icon-btn--md {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .icon-btn--sm {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .icon-btn--outline:hover {
+    border-color: var(--color-ink);
+    background-color: var(--color-surface);
+  }
+
+  .icon-btn--filled {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+
+  .icon-btn--filled:hover {
+    background-color: var(--color-accent-hover);
+  }
+
+  .icon-btn--inverse {
+    border-color: transparent;
+    background-color: var(--color-on-accent);
+    color: var(--color-accent);
+  }
+
+  .icon-btn--inverse:hover {
+    transform: translateX(2px);
+  }
+</style>

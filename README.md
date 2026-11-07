@@ -6,8 +6,8 @@ and photography-led sections: hero search, brand statement, featured
 properties, a numbered services accordion, a premium-estates collection, FAQ,
 closing CTA and an oversized footer wordmark.
 
-> **Status:** project foundation complete. Page sections are implemented in the
-> next stage; the current page is a temporary scaffold.
+> **Status:** design system complete. Page sections are implemented in the next
+> stage; the current home page is a temporary scaffold.
 
 ---
 
@@ -19,6 +19,8 @@ closing CTA and an oversized footer wordmark.
 | Bundler | [Vite](https://vite.dev) (via Astro) | 8.3.6 |
 | Language | TypeScript | 6.0.3 |
 | Styling | Native CSS + design tokens | — |
+| Display type | [Bodoni Moda Variable](https://fontsource.org/fonts/bodoni-moda) (self-hosted) | 5.3.0 |
+| Body type | [Inter Variable](https://fontsource.org/fonts/inter) (self-hosted) | 5.3.0 |
 | Images | Astro Assets + [sharp](https://sharp.pixelplumbing.com) | 0.35.5 |
 | SEO | @astrojs/sitemap | 3.7.4 |
 | Type checking | @astrojs/check | 0.9.12 |
@@ -71,21 +73,23 @@ npm run preview
 │   └── robots.txt
 ├── src/
 │   ├── assets/
-│   │   ├── fonts/            # self-hosted woff2 (pending font selection)
+│   │   ├── fonts/            # reserved for licensed original woff2 files
 │   │   └── images/           # imported through Astro's image pipeline
 │   ├── components/
 │   │   ├── layout/           # Container and layout primitives
-│   │   └── ui/               # Button and reusable UI atoms
+│   │   └── ui/               # Button, IconButton, LinkArrow, Icon, Eyebrow
 │   ├── data/                 # typed content (site metadata, listings, FAQ)
 │   ├── layouts/
-│   │   └── BaseLayout.astro  # document shell, SEO meta, global styles
+│   │   └── BaseLayout.astro  # document shell, SEO meta, fonts, global styles
 │   ├── pages/
-│   │   └── index.astro       # single page entry
+│   │   ├── index.astro       # single page entry
+│   │   └── design-system.astro  # noindex style guide (verification only)
 │   ├── scripts/              # progressive-enhancement TS modules
 │   ├── styles/
-│   │   ├── tokens.css        # colour, type, spacing, radius, motion
+│   │   ├── tokens.css        # colour, type, spacing, layout, radius, motion
 │   │   ├── base.css          # reset and element defaults
-│   │   ├── layout.css        # container, section, utilities
+│   │   ├── typography.css    # display/heading/body/label roles
+│   │   ├── layout.css        # container, section, grid, media, utilities
 │   │   └── global.css        # single import surface
 │   └── env.d.ts
 ├── astro.config.mjs
@@ -112,6 +116,71 @@ npm run preview
   copy can change without touching layout.
 - **Progressive enhancement** — markup works without JS; scripts are added in
   `src/scripts/main.ts` and loaded once.
+
+---
+
+## Design system
+
+The visual language is defined once in `src/styles/tokens.css` and consumed by
+every component. The internal style guide at **`/design-system/`** renders the
+palette, type scale, spacing, radii, shadows, grid and primitives; it is
+`noindex` and is not linked from the site.
+
+### Palette
+
+| Token | Value | Role |
+|---|---|---|
+| `--color-bg` | `#faf7f1` | Page field |
+| `--color-bg-alt` | `#f3eee4` | Alternate section surface |
+| `--color-surface` | `#fffdf8` | Cards, search widget |
+| `--color-surface-muted` | `#efe9dc` | Image placeholders |
+| `--color-ink` | `#241a15` | Primary text |
+| `--color-ink-soft` | `#4a3e35` | Lead paragraphs |
+| `--color-muted` | `#8c8177` | Captions, meta |
+| `--color-line` | `#e3dccf` | Hairline borders |
+| `--color-accent` | `#5a1d16` | Oxblood accent |
+| `--color-accent-hover` | `#6b2a20` | Accent hover |
+| `--color-accent-deep` | `#4b1712` | Open FAQ row, dark panels |
+| `--color-on-accent` | `#fbf6ec` | Text on accent |
+
+One accent only. Gradients are reserved for photographic scrims; UI surfaces
+never carry decorative gradients.
+
+### Typography
+
+| Role | Family | Tokens |
+|---|---|---|
+| Display / headings | Bodoni Moda Variable | `--font-display`, `--text-display`, `--text-h1`–`--text-h4` |
+| Body / UI | Inter Variable | `--font-body`, `--text-body`, `--text-lead` |
+| Labels | Inter Variable | `--text-xs`, `--tracking-label`, uppercase |
+
+The reference capture is 730 px wide, which does not allow a reliable
+identification of the licensed originals. Bodoni Moda (a high-contrast Didone)
+and Inter (a neutral grotesque) are the closest legitimate open-licensed
+matches; both are self-hosted as variable woff2 with `font-display: swap`.
+Families sit behind single tokens, so replacing them later is a one-line change.
+
+- **Bodoni Moda** — SIL Open Font License 1.1
+- **Inter** — SIL Open Font License 1.1
+
+### Tokens and primitives
+
+- **Spacing:** 4 px base scale, `--space-1` … `--space-10`; section rhythm via
+  `--section-space` and `--section-space-sm`.
+- **Layout:** `--container-max` 1360 px, `--container-narrow`, `--container-wide`,
+  fluid `--gutter`, 12-column `--grid-columns` and `--grid-gap`.
+- **Shape:** `--radius-xs` … `--radius-xl`, `--radius-pill`; hairline and strong
+  border tokens.
+- **Elevation:** `--shadow-soft`, `--shadow-float`, plus photographic
+  `--gradient-scrim`.
+- **Image ratios:** `--ratio-hero`, `--ratio-wide`, `--ratio-landscape`,
+  `--ratio-portrait`, `--ratio-thumb`, `--ratio-square`; use the matching
+  `.ratio-*` class on `.media` so `object-fit: cover` keeps the reference crop.
+- **Primitives:** `Button` (primary/outline/inverse, sm/md), `IconButton`
+  (outline/filled/inverse), `LinkArrow`, `Eyebrow`, `Icon`, `Container`
+  (default/narrow/wide/flush).
+- **Motion:** restrained `--ease-out` transitions; all animation is disabled
+  under `prefers-reduced-motion`.
 
 ---
 
@@ -157,9 +226,10 @@ base: '/Real-Estate',
 
 These do not block development but must be resolved before launch:
 
-- final typeface selection (currently system serif/sans fallbacks)
 - licensed photography for all sections
 - final copy, listing data and FAQ answers
+- confirmation that Bodoni Moda + Inter are acceptable final typefaces (or
+  licensed originals supplied)
 - brand monogram as SVG
 - footer wordmark spelling confirmation
 
