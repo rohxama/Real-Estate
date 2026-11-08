@@ -3,7 +3,7 @@ import { Picture } from 'astro:assets';
 import Container from '@/components/layout/Container.astro';
 import HeroSearch from '@/components/sections/HeroSearch.astro';
 import Icon from '@/components/ui/Icon.astro';
-import heroVilla from '@/assets/images/hero/hero-villa.jpg';
+import heroEstate from '@/assets/images/hero/hero-estate.jpg';
 ---
 
 <section class="hero" aria-labelledby="hero-title">
@@ -32,13 +32,13 @@ import heroVilla from '@/assets/images/hero/hero-villa.jpg';
     <figure class="hero__figure">
       <div class="hero__media">
         <Picture
-          src={heroVilla}
-          alt="Contemporary timber-and-glass villa glowing at dusk, framed by mature trees and a lawn."
+          src={heroEstate}
+          alt="Modern white-and-timber villa with a double-height glazed terrace and glass balustrades, set against a warm cream sky."
           formats={['avif', 'webp']}
           fallbackFormat="jpg"
-          widths={[480, 640, 720, 960, 1280, 1600, 2000, 2560]}
+          widths={[480, 640, 720, 960, 1280, 1600, 2000]}
           sizes="(max-width: 85rem) 92vw, 1360px"
-          quality={75}
+          quality={72}
           loading="eager"
           fetchpriority="high"
           decoding="async"
@@ -134,7 +134,9 @@ import heroVilla from '@/assets/images/hero/hero-villa.jpg';
     overflow: hidden;
     aspect-ratio: var(--ratio-hero);
     border-radius: var(--radius-xl);
-    background-color: var(--color-img-tint);
+    /* Matches the cut-out sky in the hero photograph so the rounded card
+       reads as one continuous surface while the image loads. */
+    background-color: #f3eee4;
     isolation: isolate;
   }
 
@@ -144,20 +146,7 @@ import heroVilla from '@/assets/images/hero/hero-villa.jpg';
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 50% 50%;
-  }
-
-  .hero__media::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background: radial-gradient(
-      120% 145% at 50% 45%,
-      rgba(20, 14, 10, 0) 58%,
-      rgba(20, 14, 10, 0.24) 100%
-    );
-    pointer-events: none;
+    object-position: 50% 42%;
   }
 
   /* Floating search widget ------------------------------------------------ */
@@ -165,7 +154,7 @@ import heroVilla from '@/assets/images/hero/hero-villa.jpg';
     position: relative;
     z-index: 2;
     padding-inline: clamp(0rem, 3vw, 2.5rem);
-    margin-block-start: clamp(-3.5rem, -3.5vw, -2.75rem);
+    margin-block-start: clamp(-5rem, -4.5vw, -3.75rem);
   }
 
   /* Entrance -------------------------------------------------------------- */

@@ -111,6 +111,13 @@ Two-column, top-aligned, generous whitespace above and below:
   3. Right: filled oxblood pill button `Search Now` / `Find Property` (label illegible) with arrow.
 - Thin vertical rules separate fields.
 
+> **Update, 8 November 2026.** The client later supplied a screenshot of the
+> finished form: horizontal `Residential` / `Apartment` / `Commercial` pills over
+> `Bedroom`, `Country`, `Currency` and `Starting From`, with a `Search Properties`
+> button. The build follows that screenshot; the geometry in §2.4 (overlap, cream
+> surface, large radius, soft shadow, oxblood pill) still applies, but the tab and
+> field details above are superseded.
+
 ---
 
 ## 3. Colour palette
@@ -314,7 +321,7 @@ Not derivable from a desktop-only capture. Conservative, reference-faithful assu
 |---|---|---|
 | Service accordion | Height/opacity expand, one open at a time; icon morphs + ↔ − | High (open state shown) |
 | FAQ accordion | Same pattern; active row becomes dark filled bar | High (open state shown) |
-| Hero search tabs (`For Sale` / `For Rent`) | Active underline slides between labels | Medium |
+| Hero search tabs (`For Sale` / `For Rent`) | Active underline slides between labels (superseded by the 8 Nov screenshot — pills now fill with accent) | Medium |
 | Hero filter fields | Dropdown panels (custom or native) | Low — not shown |
 | Estates listing | Horizontal carousel with circular next/prev at viewport edge | Medium-High (arrow visible) |
 | Property cards | Image zoom on hover (scale ~1.03) + caption shift | Low-Medium — standard for this style, **not visible** |
