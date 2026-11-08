@@ -359,7 +359,7 @@ search widget that overlaps the photograph's lower edge.
 | Section rhythm | 64 px header → H1, 40 px H1 → image, image overlapped ~65 px by the search card at 1440 px |
 | Headline | Two lines: `Find Your Dream` upright, `Luxury Home` italic; Bodoni Moda, 95 px / 0.98 at 1440 px, `-0.025em` tracking |
 | Text columns | `1.8fr / 0.95fr` (≈ 60 % / 32 %) with a 10 % gutter; meta block bottom-aligned to the H1 baseline |
-| Meta cluster | `users` line icon + serif `4.5K+` + micro-caps label; 3-line muted paragraph at 13 px / 1.7 |
+| Meta cluster | Serif `4.5K+` beside a micro-caps label; 3-line muted paragraph at 13 px / 1.7 |
 | Photograph | Local asset, 2.35:1 (2200 × 936), `--radius-xl` (40 px), `object-fit: cover`; the sky is keyed to `#f3eee4` so the card reads as one continuous cream surface, with no vignette. AVIF/WebP with a JPEG fallback and responsive `srcset` |
 | Search widget | `--color-surface`, `--radius-md` (24 px), `--shadow-float`, 127 px tall at 1440 px, 40 px inset from the image edges |
 | Search contents | Radio tabs `Residential` (default) / `Apartment` / `Commercial` as accent pills, then four native selects (`Bedroom`, `Country`, `Currency`, `Starting From`) split by hairlines, and the accent `Search Properties` pill. Submits `GET` to `#properties`. |

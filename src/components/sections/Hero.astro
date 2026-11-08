@@ -2,7 +2,6 @@
 import { Picture } from 'astro:assets';
 import Container from '@/components/layout/Container.astro';
 import HeroSearch from '@/components/sections/HeroSearch.astro';
-import Icon from '@/components/ui/Icon.astro';
 import heroEstate from '@/assets/images/hero/hero-estate.jpg';
 ---
 
@@ -16,7 +15,6 @@ import heroEstate from '@/assets/images/hero/hero-estate.jpg';
 
       <div class="hero__meta">
         <p class="hero__stat">
-          <Icon name="users" size={18} />
           <span class="hero__stat-value">4.5K+</span>
           <span class="hero__stat-label">Happy clients</span>
         </p>
@@ -93,7 +91,6 @@ import heroEstate from '@/assets/images/hero/hero-estate.jpg';
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    color: var(--color-accent);
   }
 
   .hero__stat-value {
