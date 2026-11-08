@@ -10,9 +10,20 @@ import FeaturedProperties from '@/components/sections/FeaturedProperties.astro';
 import Hero from '@/components/sections/Hero.astro';
 import Services from '@/components/sections/Services.astro';
 import { site } from '@/data/site';
+import { buildStructuredData } from '@/data/schema';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const origin = Astro.site ?? Astro.url;
+const siteUrl = new URL(`${base}/`, origin).href;
+const ogImage = new URL(`${base}/og-estatia.jpg`, origin).href;
+const jsonLd = buildStructuredData(siteUrl, ogImage);
 ---
 
-<BaseLayout title={site.title} description={site.description}>
+<BaseLayout
+  title={site.title}
+  description={site.description}
+  jsonLd={jsonLd}
+>
   <Header current="" />
 
   <main id="main-content">

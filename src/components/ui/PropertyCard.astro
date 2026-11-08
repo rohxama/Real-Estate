@@ -22,9 +22,9 @@ const { property, delay = 0, class: className } = Astro.props;
       alt={property.alt}
       formats={['avif', 'webp']}
       fallbackFormat="jpg"
-      widths={[480, 720, 960, 1280]}
-      sizes="(max-width: 40rem) 100vw, (max-width: 64rem) 46vw, 640px"
-      quality={80}
+      widths={[480, 600, 720, 960, 1280]}
+      sizes="(max-width: 40rem) 90vw, (max-width: 64rem) 46vw, 640px"
+      quality={72}
       loading="lazy"
       decoding="async"
     />
