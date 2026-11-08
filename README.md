@@ -6,10 +6,11 @@ and photography-led sections: hero search, brand statement, featured
 properties, a numbered services accordion, a premium-estates collection, FAQ,
 closing CTA and an oversized footer wordmark.
 
-> **Status:** complete single-page build, performance/SEO/accessibility pass
-> applied. The design system, header, hero, about, featured properties,
-> services, collection, FAQ, CTA and footer are implemented and validated from
-> 320 px to 1920 px, including touch-target and coarse-pointer checks. Current
+> **Status:** complete single-page build, performance/SEO/accessibility pass and
+> final visual/functional audit applied. The design system, header, hero,
+> about, featured properties, services, collection, FAQ, CTA and footer are
+> implemented and validated from 320 px to 1920 px, including touch-target and
+> coarse-pointer checks. Current
 > Lighthouse results are 95–99/100/100/100 (mobile) and 100/100/100/100
 > (desktop); see [Performance, SEO and accessibility](#performance-seo-and-accessibility).
 > Original photography and final copy remain pending client inputs; every
@@ -75,7 +76,9 @@ npm run preview
 ```text
 .
 ├── public/
+│   ├── .nojekyll            # lets GitHub Pages serve _astro/
 │   ├── favicon.svg
+│   ├── fonts/                # SIL OFL notices for the vendored fonts
 │   ├── og-estatia.jpg        # 1200 × 630 social share card
 │   └── robots.txt
 ├── src/
@@ -184,11 +187,14 @@ matches; both are self-hosted as variable woff2 with `font-display: swap`.
 Families sit behind single tokens, so replacing them later is a one-line change.
 
 Only the three faces the site renders are declared in `src/styles/fonts.css`
-and copied into `src/assets/fonts/` — Bodoni normal, Bodoni italic and Inter
-normal, latin subset only. Fontsource remains in `package.json` as the source
-and licence provenance for those files. All three are preloaded from
-`BaseLayout`; the full Fontsource stylesheet (≈20 KB covering Cyrillic, Greek,
-Vietnamese, maths and symbols) is not imported.
+and vendored into `src/assets/fonts/` — Bodoni normal, Bodoni italic and Inter
+normal, latin subset only. They were sourced from Fontsource 5.3.0; the
+Fontsource packages are no longer installed because the woff2 files are
+committed and nothing imports the package CSS. The SIL OFL notices are
+included at `public/fonts/OFL-Bodoni-Moda.txt` and `public/fonts/OFL-Inter.txt`.
+All three files are preloaded from `BaseLayout`; the full Fontsource stylesheet
+(≈20 KB covering Cyrillic, Greek, Vietnamese, maths and symbols) is not
+imported.
 
 - **Bodoni Moda** — SIL Open Font License 1.1
 - **Inter** — SIL Open Font License 1.1
@@ -750,7 +756,9 @@ external script. Mobile LCP improved because the hero now serves a 720 w AVIF
   three latin-only variable faces, `font-display: swap`, explicit
   `unicode-range`.
 - The three woff2 files (102 KB total) are self-hosted, hashed by Vite and
-  preloaded in `BaseLayout`. Fontsource remains the licence/source of record.
+  preloaded in `BaseLayout`. The woff2 files are vendored with their SIL OFL
+  notices under `public/fonts/`, so the Fontsource packages are no longer
+  dependencies.
 
 **CSS and JavaScript**
 
@@ -813,29 +821,113 @@ external script. Mobile LCP improved because the hero now serves a 720 w AVIF
 
 | Metric | Target | Measured |
 |---|---|---|
-| LCP (mobile, emulated 4G) | ≤ 2.0 s | 2.1 s — 0.1 s over |
+| LCP (mobile, emulated 4G) | ≤ 2.0 s | 2.1–2.9 s — over target in emulation |
 | CLS | ≤ 0.02 | 0 |
-| TBT (proxy for INP) | ≤ 200 ms | 40 ms mobile / 10 ms desktop |
+| TBT (proxy for INP) | ≤ 200 ms | 30–40 ms mobile / 0–10 ms desktop |
 | JS (transfer) | ≤ 15 KB | ≈1.2 KB inline |
 | CSS (transfer) | ≤ 25 KB | 9.1 KB |
-| Hero image (AVIF, 390 px) | ≤ 180 KB | ≈37 KB |
+| Hero image (AVIF, 390 px, DPR 2) | ≤ 180 KB | ≈78 KB |
 | Lighthouse | ≥ 95 across categories | 95–99/100/100/100 mobile, 100/100/100/100 desktop |
+
+## Final visual and functional audit
+
+The reference is supplied as a low-resolution two-panel capture and the original
+bitmap is **not present in this workspace**. This audit therefore compares the
+built page with the measurements, content inventory and confidence notes in
+[`DESIGN_REFERENCE.md`](DESIGN_REFERENCE.md); it is a specification comparison,
+not a pixel diff, and the page is **not claimed to be pixel-identical**.
+
+Full-page and per-section captures were taken at **1440 × 900** (desktop),
+**1024 × 768** (tablet) and **390 × 844** (mobile) after scrolling through the
+reveals. They are kept outside the repository as QA artefacts.
+
+### Visual specification check (1440 px)
+
+| Element | Reference range | Built value |
+|---|---|---|
+| Header height | 64–80 px | 80 px |
+| Container / gutter | max 1280–1360 / 40–64 px | 1324.8 px / 57.6 px |
+| Section padding | 88–120 px | 120 px |
+| Hero H1 | 84–96 px, line-height 0.98–1.02 | 95.0 px / 0.98 |
+| Hero column split | ≈58 % / 32 % | 60 % / 32 % (1.8fr / 0.95fr) |
+| Hero image | 2.2–2.4:1, radius 24–40 px | 2.35:1, radius 40 px |
+| Search widget | ≈76–96 px tall, radius 36–44 px | 97.4 px, radius 40 px |
+| About heading | 44–56 px | 56 px |
+| About collage | 1:1 small, 4:3 large, asymmetric | 1:1 / 4:3 with 80 px vertical offset |
+| Featured cards | 2 columns, 32–40 px gap, staggered | 2 columns, 40 px gap, 80 px stagger |
+| Featured card media | rounded, 24–32 px | 4:3, radius 24 px |
+| Services rows | 64–76 px collapsed | 67.2 px |
+| Services open media | wide panorama ≈2.3:1 | 2.3:1 |
+| Collection heading | 38–46 px | 46 px |
+| Collection thumbs | landscape, radius 8–12 px | 4:3, radius 8 px |
+| FAQ heading | 38–46 px | 46 px |
+| FAQ collapsed rows | ≈48–56 px (low-confidence) | 65.6 px |
+| CTA heading | 44–56 px | 48 px |
+| CTA image | ≈46 % column, ≈300 px tall | 2.05:1, 318 px tall, radius 32 px |
+| Footer wordmark | 180–230 px | 194 px |
+
+All palette tokens match the reference estimates except `--color-muted`,
+which was intentionally darkened from `#8c8177` to `#746a60` to reach WCAG AA
+(3.55:1 → 4.9:1). Display type is set in Bodoni Moda (400 weight, italic second
+line) and utility text in Inter (500 weight, uppercase, wide tracking), as
+specified. The FAQ row height is the largest numeric deviation from the
+reference estimate; the estimate is low-confidence, and reducing the padding
+further would shrink the row below the current touch comfort without changing
+the section's proportions.
+
+### Functional check
+
+| Check | Result |
+|---|---|
+| Internal anchors | 12 / 12 resolve to an existing section; all header, mobile-menu and section links work |
+| Search form | submits and lands on `#properties`; tabs are keyboard-operable radios |
+| Accordions | one open at a time for both services and FAQ; keyboard toggles |
+| Mobile navigation | opens, closes on link/Escape/outside click, focus returns to toggle |
+| CTA / contact links | valid `mailto:` and `tel:`; Instagram is a documented placeholder |
+| Console / page errors | 0 at 1440, 1024 and 390 px |
+| Failed requests | 0; all HTML, CSS, font and image requests return 200 |
+| Routes | `/` and `/design-system/` return 200; the latter is `noindex, nofollow` |
+| Missing images | 0; every `<img>` has a source and alt text |
+| Responsive sweep | 13 widths from 320 to 1920 px, 0 horizontal overflow |
+| Reveals / motion | 30 / 30 targets reveal; reduced-motion and no-JS states verified |
+
+### Known visual deviations
+
+- Photography is curated Unsplash/Pexels stock, not the unsupplied reference
+  photographs; subjects and crops are close in spirit but not identical.
+- About, CTA, service descriptions and metadata copy remain placeholders where
+  the capture was illegible.
+- The collection carousel is a static eight-item grid because only eight
+  listings are known; the reference's next control is intentionally omitted.
+- The header CTA label, search field labels and several prices are inferred
+  placeholders. These are listed under [Placeholder content](#placeholder-content).
+- Exact original typefaces and the monogram vector are unknown; the current
+  choices are documented substitutes.
 
 ## Deployment
 
-The build is fully static (`dist/`). `astro.config.mjs` is already configured
-for a GitHub Pages project site:
+The build is fully static (`dist/`). `astro.config.mjs` is configured for a
+GitHub Pages project site:
 
 ```js
 site: 'https://rohxama.github.io',
 base: '/Real-Estate',
 ```
 
-- **GitHub Pages (project site):** publish the contents of `dist/`. The base
-  path is already applied to assets, canonical URLs and the sitemap.
+- **Build command:** `npm run build` (`astro check` + `astro build`).
+- **Output directory:** `dist/`.
+- **Node:** 22.23.4 or newer (`24.16.0` used here).
+- `public/.nojekyll` is copied to `dist/.nojekyll` so GitHub Pages serves the
+  `_astro/` asset directory instead of hiding it as a Jekyll-internal path.
+- **GitHub Pages (project site):** publish the contents of `dist/` to the Pages
+  branch/environment. The base path is already applied to assets, canonical
+  URLs, robots and the sitemap.
 - **Vercel / Netlify / Cloudflare Pages (domain root):** remove `base`, set
-  `site` to the production origin, then rebuild. Build command:
-  `npm run build`; output directory: `dist`.
+  `site` to the production origin, then rebuild. Build command and output
+  directory stay the same.
+
+No external deployment has been performed; this remains a manual step pending
+approval.
 
 ## Pending inputs
 
