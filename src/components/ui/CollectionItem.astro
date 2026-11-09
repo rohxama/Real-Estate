@@ -4,25 +4,15 @@ import type { CollectionItem } from '@/data/collection';
 
 interface Props {
   item: CollectionItem;
-  mirrored?: boolean;
   delay?: number;
   class?: string;
 }
 
-const {
-  item,
-  mirrored = false,
-  delay = 0,
-  class: className,
-} = Astro.props;
+const { item, delay = 0, class: className } = Astro.props;
 ---
 
 <article
-  class:list={[
-    'collection-item',
-    mirrored && 'collection-item--mirrored',
-    className,
-  ]}
+  class:list={['collection-item', className]}
   data-reveal
   style={`--reveal-delay: ${delay}ms`}
 >
@@ -76,20 +66,6 @@ const {
 
   .collection-item__body {
     grid-column: 2;
-    grid-row: 1;
-  }
-
-  .collection-item--mirrored {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 0.78fr);
-  }
-
-  .collection-item--mirrored .collection-item__media {
-    grid-column: 2;
-    grid-row: 1;
-  }
-
-  .collection-item--mirrored .collection-item__body {
-    grid-column: 1;
     grid-row: 1;
   }
 
@@ -153,20 +129,6 @@ const {
 
   .collection-item__spec dd {
     color: var(--color-ink-soft);
-  }
-
-  @media (max-width: 48rem) {
-    .collection-item--mirrored {
-      grid-template-columns: minmax(0, 0.78fr) minmax(0, 1fr);
-    }
-
-    .collection-item--mirrored .collection-item__media {
-      grid-column: 1;
-    }
-
-    .collection-item--mirrored .collection-item__body {
-      grid-column: 2;
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {

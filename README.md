@@ -474,8 +474,8 @@ placeholders; the reference only shows row `01` expanded.
 
 ### Collection / premium estates
 
-- Static 2-column × 4-row grid of eight items, with the right column mirrored
-  (thumbnail right, text left) exactly as specified in the reference.
+- Static 2-column × 4-row grid of eight items. Both columns read image then
+  text — the right column is no longer mirrored, per the client's request.
 - Each item is a 42 % / 58 % media-to-text split. The text block contains the
   name, location and a compact spec stack (`Sq. Ft.`, `Beds`, `Baths`) capped at
   `9.5rem`, so labels and values stay close at every width.
@@ -658,7 +658,7 @@ fit the layout and must be confirmed before launch:
 | About | kicker, heading, CTA intent | paragraph, `Learn more` label |
 | Featured | `Westmere House` / `Exeter House`, visible price prefixes | `Alder House`, `Marlow Estate`, all four complete prices |
 | Services | four row titles, row `01` open | all descriptions; images for rows `02`–`04` |
-| Collection | all eight names, four spec labels, mirrored layout | locations and every spec value |
+| Collection | all eight names, four spec labels, image-left layout | locations and every spec value |
 | FAQ | four questions, singular `Question?` | all answers |
 | CTA | heading, layout | paragraph, button label, phone, email, studio address, Instagram URL |
 | Footer | clipped wordmark + monogram layout | confirmed spelling of `estatia` |

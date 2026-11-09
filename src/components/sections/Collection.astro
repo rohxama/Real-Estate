@@ -37,7 +37,6 @@ import { collectionItems } from '@/data/collection';
         collectionItems.map((item, index) => (
           <CollectionItem
             item={item}
-            mirrored={index % 2 === 1}
             delay={(index % 2) * 70}
           />
         ))

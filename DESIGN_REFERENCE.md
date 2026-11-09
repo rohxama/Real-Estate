@@ -302,6 +302,11 @@ Not derivable from a desktop-only capture. Conservative, reference-faithful assu
   - Right column: name + spec stack | thumbnail (mirrored).
   - Spec lines are 4 tiny rows: location, sq ft, beds, baths (labels and values, e.g. `New York, USA`, `Sq. Ft. 5,000`, `Beds 5`, `Baths 4`).
   - Names visible/estimated: `Marble House`, `The Royal Villa`, `Lakeview Manor`, `Villa Serenity`, `The Waterfront Estate`, `Casa Belle`, `Seaside Villa`, `Ivy Court`. **Confirm all.**
+
+> **Update, 9 November 2026.** The client asked for the second column's thumbnail
+> to sit on the left like the first, so the build drops the mirrored layout:
+> every item reads image then text. §4.3 and §6 still describe the reference;
+> the staggering and the 42 / 58 media-text split are unchanged.
 - Row spacing using hairline separators is **not** present — items float on cream with ~24–32 px gaps.
 - A circular chevron button ("next") is visible at the **right viewport edge, vertically centered on this section** → this listing is a **carousel/slider**.
 
