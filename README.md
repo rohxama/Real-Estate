@@ -357,9 +357,9 @@ search widget that overlaps the photograph's lower edge.
 | Aspect | Implementation |
 |---|---|
 | Section rhythm | 64 px header → H1, 40 px H1 → image, image overlapped ~65 px by the search card at 1440 px |
-| Headline | Two lines: `Find Your Dream` upright, `Luxury Home` italic; Bodoni Moda, 95 px / 0.98 at 1440 px, `-0.025em` tracking |
+| Headline | Two lines: `Find Your Dream` upright, `Luxury Home` italic; Bodoni Moda, 95 px / 0.98 at 1440 px, `-0.025em` tracking, warm cocoa `#5f3b2f` with the italic line stepping to `#8d6a55` |
 | Text columns | `1.8fr / 0.95fr` (≈ 60 % / 32 %) with a 10 % gutter; meta block bottom-aligned to the H1 baseline |
-| Meta cluster | Serif `4.5K+` beside a micro-caps label; 3-line muted paragraph at 13 px / 1.7 |
+| Meta cluster | Three overlapping 34 px avatar discs with a serif `+50K` (screen readers hear `+50K happy clients`); 3-line muted paragraph at 13 px / 1.7 |
 | Photograph | Local asset, 2.35:1 (2200 × 936), `--radius-xl` (40 px), `object-fit: cover`; the sky is keyed to `#f3eee4` so the card reads as one continuous cream surface, with no vignette. AVIF/WebP with a JPEG fallback and responsive `srcset` |
 | Search widget | `--color-surface`, `--radius-md` (24 px), `--shadow-float`, 127 px tall at 1440 px, 40 px inset from the image edges |
 | Search contents | Radio tabs `Residential` (default) / `Apartment` / `Commercial` as accent pills, then four native selects (`Bedroom`, `Country`, `Currency`, `Starting From`) split by hairlines, and the accent `Search Properties` pill. Submits `GET` to `#properties`. |
@@ -408,12 +408,13 @@ pointers get 44 px tap targets.
 
 ### Copy status
 
-The reference capture is too low-resolution to read the hero paragraph and its
-filter labels. `4.5K+`, `Happy clients`, the paragraph and the option lists are
-inferred placeholders. The H1 comes from the original reference; the tab labels
-(`Residential` / `Apartment` / `Commercial`) and the four field labels
-(`Bedroom`, `Country`, `Currency`, `Starting From`) follow the later screenshot
-supplied by the client and are treated as confirmed.
+The original reference capture is too low-resolution to read the hero paragraph
+and its filter labels, so the earlier hero copy was a placeholder. The client's
+second screenshot supplied the current hero copy (`Not just a home…`), the
+`+50K` client count and the avatar cluster, and the search screenshot supplied
+the tab labels (`Residential` / `Apartment` / `Commercial`) and the four field
+labels (`Bedroom`, `Country`, `Currency`, `Starting From`). Only the option lists
+under those four fields remain inferred.
 
 ---
 
@@ -652,7 +653,7 @@ fit the layout and must be confirmed before launch:
 
 | Area | Confirmed from reference | Placeholder |
 |---|---|---|
-| Hero | H1, `Residential` / `Apartment` / `Commercial` tabs, the four field labels, `4.5K+` | hero paragraph, `Happy clients`, the option lists |
+| Hero | H1, hero paragraph, `+50K` with avatars, `Residential` / `Apartment` / `Commercial` tabs, the four field labels | the option lists under the four fields |
 | About | kicker, heading, CTA intent | paragraph, `Learn more` label |
 | Featured | `Westmere House` / `Exeter House`, visible price prefixes | `Alder House`, `Marlow Estate`, all four complete prices |
 | Services | four row titles, row `01` open | all descriptions; images for rows `02`–`04` |

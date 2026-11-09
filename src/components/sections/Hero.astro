@@ -14,15 +14,20 @@ import heroEstate from '@/assets/images/hero/hero-estate.jpg';
       </h1>
 
       <div class="hero__meta">
-        <p class="hero__stat">
-          <span class="hero__stat-value">4.5K+</span>
-          <span class="hero__stat-label">Happy clients</span>
+        <p class="hero__proof">
+          <span class="hero__avatars" aria-hidden="true">
+            <span class="hero__avatar">A</span>
+            <span class="hero__avatar">M</span>
+            <span class="hero__avatar">R</span>
+          </span>
+          <span class="hero__proof-value">+50K</span>
+          <span class="visually-hidden">happy clients</span>
         </p>
 
         <p class="hero__copy">
-          Discover the exceptional — a curated collection of architectural
-          homes where craftsmanship, natural light and landscape come together
-          in quiet, enduring luxury.
+          Not just a home, but a refined intelligent sanctuary—your AI
+          co-designer crafting a residence that evolves seamlessly with your
+          lifestyle and vision every day.
         </p>
       </div>
     </div>
@@ -67,6 +72,9 @@ import heroEstate from '@/assets/images/hero/hero-estate.jpg';
 
   .hero__title {
     margin: 0;
+    /* Warm cocoa, matching the supplied hero mock rather than the site's
+       near-black ink; the italic line steps one tone lighter. */
+    color: #5f3b2f;
     /* Scales with the viewport so the two-line lockup keeps the reference
        proportion between 1440 and tablet widths. */
     font-size: clamp(3rem, 6.6vw, 6rem);
@@ -81,36 +89,61 @@ import heroEstate from '@/assets/images/hero/hero-estate.jpg';
   .hero__title em {
     font-style: italic;
     font-weight: var(--weight-regular);
+    color: #8d6a55;
   }
 
   .hero__meta {
     padding-block-end: 0.35rem;
   }
 
-  .hero__stat {
+  /* Avatar cluster + client count ----------------------------------------- */
+  .hero__proof {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.85rem;
   }
 
-  .hero__stat-value {
+  .hero__avatars {
+    display: flex;
+    align-items: center;
+  }
+
+  .hero__avatar {
+    display: grid;
+    place-items: center;
+    width: 2.15rem;
+    height: 2.15rem;
+    border: 2px solid var(--color-bg);
+    border-radius: 50%;
+    background-color: var(--color-ink-soft);
+    color: var(--color-on-accent);
+    font-family: var(--font-body);
+    font-size: var(--text-2xs);
+    font-weight: var(--weight-medium);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .hero__avatar:nth-child(1) {
+    background-color: var(--color-accent);
+  }
+
+  .hero__avatar:nth-child(2) {
+    background-color: #8c6a4f;
+  }
+
+  .hero__avatar + .hero__avatar {
+    margin-inline-start: -0.55rem;
+  }
+
+  .hero__proof-value {
     font-family: var(--font-display);
     font-size: 1.5rem;
     font-weight: var(--weight-regular);
     line-height: 1;
     letter-spacing: -0.01em;
     color: var(--color-ink);
-  }
-
-  .hero__stat-label {
-    margin-block-start: 0.15rem;
-    color: var(--color-muted);
-    font-family: var(--font-body);
-    font-size: var(--text-2xs);
-    font-weight: var(--weight-medium);
-    line-height: 1;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
   }
 
   .hero__copy {
