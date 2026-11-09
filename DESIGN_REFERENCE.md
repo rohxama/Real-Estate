@@ -102,6 +102,11 @@ Two-column, top-aligned, generous whitespace above and below:
 - Subject: contemporary luxury villa — curved travertine/limestone volumes, deep recessed balcony, floor-to-ceiling glazing with warm interior light, dusk sky.
 - The image's left and right extremes fade into **blurred dark-green foliage**; this soft blurred framing appears intentional (decorative blurred backdrop behind/around the sharp architecture). Flag as needing a higher-res check.
 
+> **Update, 9 November 2026.** The client supplied the hero building, a
+> transparent cut-out of a cream-toned villa with rounded cantilevered balconies
+> and warm LED strip lighting. The build composites that artwork onto
+> `#f3eee4`; the reference's dusk sky and blurred foliage framing do not apply.
+
 ### 2.4 Floating search widget
 - Positioned **overlapping the lower edge of the hero image** and protruding below it, centered, with wide horizontal inset.
 - White/off-white surface, large rounded corners (pill-ish), soft diffuse drop shadow, no hard border.
