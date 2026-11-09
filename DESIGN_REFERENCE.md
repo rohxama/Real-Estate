@@ -275,6 +275,10 @@ Not derivable from a desktop-only capture. Conservative, reference-faithful assu
 - Composition: faint giant circle arcs + circular badge text behind; small image top-left; paragraph in the middle; larger image lower-right; oxblood pill `Learn more` (or `About us`) with arrow at the lower right.
 - Paragraph text is truncated/illegible in the reference.
 
+> **Update, 9 November 2026.** At the client's request the concentric arcs were
+> removed from the build; the composition now sits directly on the page cream.
+> The circular seal remains. §4.3 row 9 and §2.5 still describe the reference.
+
 ### 7.4 Featured properties
 - Heading left: `Explore Spaces Designed` / *`For Modern Living.`*
 - Top-right: small uppercase/arrow link `Explore all properties →`.

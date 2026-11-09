@@ -435,7 +435,7 @@ preserved at every breakpoint. Content lives in typed modules under
 | Kicker | `About us`, left-aligned above the centred heading |
 | Heading | `Crafted for Exceptional` / *`Modern Luxury Living`* |
 | Composition | 12-column grid: 3-column square image top-left, 5-column paragraph in the centre, 4-column 4:3 image lower-right |
-| Decoration | Three concentric hairline ellipses at 9 % opacity and a circular `ESTATIA · PRIVATE COLLECTION` seal behind the collage; both are purely decorative and hidden ≤ 768 px |
+| Decoration | A circular `ESTATIA · PRIVATE COLLECTION` seal behind the collage; purely decorative and hidden ≤ 768 px |
 | CTA | Oxblood `Learn more` pill with a 13 px arrow, placed in the lower-right quadrant of the copy column |
 | Stagger | The smaller image sits higher than the larger one, reproducing the reference's deliberately asymmetric collage rather than a plain two-column split |
 | Responsive | ≤ 1024 px the collage keeps its proportions with tighter sizing; ≤ 768 px it becomes copy → square image → large image → CTA |
@@ -597,8 +597,8 @@ introduces a deliberate reflow rather than shrinking the desktop canvas.
   `#properties`; tabs are native radios and remain keyboard operable.
 - Mobile navigation is a native disclosure with close-on-navigate, Escape
   (focus returns to the toggle), outside-click and aria-label syncing.
-- Every content image carries descriptive alternative text; decorative arcs,
-  the seal and the footer wordmark are hidden from assistive technology.
+- Every content image carries descriptive alternative text; the decorative
+  seal and the footer wordmark are hidden from assistive technology.
 - `prefers-reduced-motion` disables the card/image zoom and underline/arrow
   transitions.
 - Axe (WCAG 2.1 A/AA + best practice) reports no violations at 1440 px or 390 px.
@@ -818,8 +818,8 @@ external script. Mobile LCP improved because the hero now serves a 720 w AVIF
   specialties), `WebSite`, and `FAQPage` with the four rendered questions.
 - Sections use `header`, `nav`, `main`, `section`, `article`, `figure`,
   `figcaption`, `dl`, `details`/`summary` and a single `footer`; heading order
-  is sequential. All content images have descriptive alt text; decorative
-  arcs, the seal and the footer wordmark are `aria-hidden`.
+  is sequential. All content images have descriptive alt text; the decorative
+  seal and the footer wordmark are `aria-hidden`.
 
 **Accessibility**
 
