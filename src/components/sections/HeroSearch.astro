@@ -106,7 +106,9 @@ const fields = [
     gap: 0.75rem;
     padding: 0.8rem 1rem 1rem;
     background-color: var(--color-surface);
-    border-radius: var(--radius-md);
+    /* Softer than a pill: the client asked for a squarer card than the
+       original 24 px, so the panel uses the small-radius token. */
+    border-radius: var(--radius-sm);
     box-shadow: var(--shadow-float);
   }
 

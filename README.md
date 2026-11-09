@@ -361,7 +361,7 @@ search widget that overlaps the photograph's lower edge.
 | Text columns | `1.8fr / 0.95fr` (≈ 60 % / 32 %) with a 10 % gutter; meta block bottom-aligned to the H1 baseline |
 | Meta cluster | Three overlapping 34 px avatar discs with a serif `+50K` (screen readers hear `+50K happy clients`); 3-line muted paragraph at 13 px / 1.7 |
 | Photograph | Local asset, 2.35:1 (2200 × 936), `--radius-xl` (40 px), `object-fit: cover`; the sky is keyed to `#f3eee4` so the card reads as one continuous cream surface, with no vignette. AVIF/WebP with a JPEG fallback and responsive `srcset` |
-| Search widget | `--color-surface`, `--radius-md` (24 px), `--shadow-float`, 127 px tall at 1440 px, 40 px inset from the image edges |
+| Search widget | `--color-surface`, `--radius-sm` (14 px), `--shadow-float`, 127 px tall at 1440 px, 40 px inset from the image edges |
 | Search contents | Radio tabs `Residential` (default) / `Apartment` / `Commercial` as accent pills, then four native selects (`Bedroom`, `Country`, `Currency`, `Starting From`) split by hairlines, and the accent `Search Properties` pill. Submits `GET` to `#properties`. |
 | Motion | 200 ms pill fill on the tabs, chevron flip in the focused field and a 3 px arrow shift on the submit; all suppressed by `prefers-reduced-motion` |
 | Image priority | `loading="eager"`, `fetchpriority="high"`; 12 KB AVIF at the 480 px step and 76 KB at the 1600 px step |
