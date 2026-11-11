@@ -210,6 +210,15 @@ All values are **visually estimated from the low-resolution reference**; they ar
 - Images are never full-bleed to the viewport edge except the hero's blurred outer glow — every content image sits inside a rounded frame with visible cream margin.
 - No icon set beyond: chevron-down, arrow-right/up-right, plus/minus, small line icons. Icon strokes thin.
 
+> **Update, 11 November 2026.** Row 8 (CTA) is now a golden-hour Mediterranean
+> villa — cream stucco, terracotta roof, warm sky — cropped to 2.05:1 (Pexels
+> 34939808, full frame kept at `cta/source/golden-mediterranean-facade.jpg`).
+> The hero keeps the client's transparent villa render composited onto
+> `#f3eee4` so the card reads as one continuous cream surface. The collection
+> items all read image-left. Row 9 (About arcs) was removed at the client's
+> request and no longer exists in the build; row 10's avatar cluster is now a
+> set of initials chips.
+
 ---
 
 ## 6. Layout, spacing, sizing
@@ -316,10 +325,27 @@ Not derivable from a desktop-only capture. Conservative, reference-faithful assu
 - Collapsed rows (cream, hairline separated, `+` control): `Do you offer an initial or private tour?`, `Should we make an offer or can we negotiate directly?`, `Do we need an extra deposit/booking fee?`, plus 1–2 more illegible rows.
 - Open row may contain answer copy (not legible).
 
+> **Update, 11 November 2026.** The client supplied a fresh mock for this section
+> and asked for "the same section ui": the rows become **full-height vertical
+> accordion columns**. Left column keeps the heading and adds a rotated
+> `Need A Help` pill; the right side holds four equal-height columns whose
+> questions run bottom-to-top (`writing-mode: vertical-rl` + `rotate(180deg)`).
+> The open column widens (136 → 200 px at 1440 px) and fills with
+> `--color-accent-deep`; collapsed columns sit on `--color-bg-alt` with a
+> circular `+`. The answer appears on a cream plate inside the open column,
+> capped at `max-inline-size: 20rem` so the vertical run wraps into a few narrow
+> lines. Below 64 rem the columns fall back to the stacked rows described above.
+> The bullets above still describe the original capture.
+
 ### 7.8 CTA
 - Left: `Find Your Signature Home` / *`Today. Explore the Collection`*, 2–3 line paragraph, oxblood pill button (label illegible — likely `Book a visit` / `Contact us`), then a small 2-column contact/meta list (phone, email, address, social) in tiny type.
 - Right: large rounded image of a symmetrical classical villa with warm stone facade and lawn.
 - This block reads as a **pre-footer band**, not a dark CTA — it stays on cream.
+
+> **Update, 11 November 2026.** The client asked for "some golden house image that
+> fits with the theme", so the plate now holds a golden-hour Mediterranean villa
+> (Pexels 34939808) cropped to 2.05:1 — cream stucco, terracotta roof and a warm
+> sky that sit inside the section's cream/oxblood palette. Geometry is unchanged.
 
 ### 7.9 Footer
 - No link columns, no legal row visible.

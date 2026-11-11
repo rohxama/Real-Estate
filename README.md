@@ -255,7 +255,7 @@ entrance on load and its photograph is deliberately untouched.
 | Section headings, copy blocks, cards, collection items, FAQ and footer band | Fade + 20 px rise on first intersection (700 ms); media also scales from 0.985. |
 | Property cards / collection items | Image scales 1.03 / 1.04 on hover (700 ms). |
 | Services rows | Title turns accent on hover; control fills oxblood when open; `+` and `−` rotate/cross-fade instead of swapping with `display`; panel fades and rises; image scales 1.02 on hover. |
-| FAQ rows | Same icon morph; open row fills oxblood with cream text; answer fades and rises. Padding is identical in both states so question text never shifts horizontally. |
+| FAQ columns | Same icon morph; the open column widens and fills oxblood with cream text; the answer plate fades in. Columns animate width and background, so the vertical questions never shift. |
 | Desktop navigation | Accent colour plus a 1 px underline that wipes in from the left (400 ms). |
 | Mobile navigation | Panel fades and drops 8 px in/out (400 ms) using `@starting-style` + `display ... allow-discrete`; links nudge their arrow 2 px on hover; toggle bars morph to a close icon. |
 | Hero search | Active tab underline wipes between labels; field labels darken on hover/focus; chevron rotates 180° while the select has focus; submit arrow shifts 3 px. |
@@ -286,7 +286,7 @@ entrance on load and its photograph is deliberately untouched.
 | No-JS | `reveal-ready` absent, 0 hidden targets, first FAQ and first service still open |
 | Reduced motion | `reveal-ready` absent, 0 hidden targets, `scroll-behavior: auto`, hover zooms `none`, hero animation 0.01 ms |
 | Hover states | card zoom 1.03, service zoom 1.02, link arrow +3 px, button arrow +2 px, button press +1 px |
-| Accordions | one open at a time; icon opacity swaps; FAQ answers become visible; question left edges identical (686.4 px) |
+| Accordions | one open at a time; icon opacity swaps; FAQ answers become visible; the open FAQ column widens from 136 px to 200 px at 1440 px |
 | Navigation | mobile panel opens/closes in ≈400 ms, `aria-label` syncs, Escape returns focus to the toggle, link click closes and navigates |
 | Hero search | underline moves to the checked tab; focused chevron rotates 180°; submit arrow nudges |
 | Console / page errors | none |
@@ -493,13 +493,18 @@ placeholders; the reference only shows row `01` expanded.
 
 ### FAQ
 
-- 0.72 / 1 split: `Frequently` / *`Asked Question?`* on the left, accordion on
-  the right. The singular `Question?` spelling is preserved from the reference.
-- Four native `<details name="faq">` rows; the first is open and filled with
-  `--color-accent-deep`, cream text and a circular `−`. Collapsed rows sit on
-  cream with hairline separators and `+` controls.
+- Vertical accordion columns, matching the supplied reference: the heading
+  (`Frequently` / *`Asked Question?`*) and a rotated `Need A Help` pill on the
+  left, four full-height columns on the right.
+- Each column is a native `<details name="faq">`; the open column widens and
+  fills with `--color-accent-deep`, its question and answer set in
+  `writing-mode: vertical-rl` (bottom-to-top). Collapsed columns sit on
+  `--color-bg-alt` with a circular `+`; the answer sits on a cream plate inside
+  the open column.
 - One-open-at-a-time via the shared `name` attribute; keyboard and no-JS
   behaviour come from the native element.
+- ≤ 64 rem the columns become the earlier stacked rows (question left, `+`/`−` on
+  the right) so the questions stay readable and tappable on tablets and phones.
 - Answers are placeholders. The reference lists one or two further rows that are
   illegible; only the four readable questions are included.
 
@@ -509,8 +514,10 @@ placeholders; the reference only shows row `01` expanded.
   (`Find Your Signature Home` / *`Today. Explore the Collection`*), a short
   paragraph, the `Book a private viewing` pill, then a four-item metadata grid
   (phone, email, studio, Instagram).
-- The image is a 2.05:1 rounded plate with a soft shadow, matching the
-  reference's symmetrical classical villa and lawn.
+- The image is a 2.05:1 rounded plate with a soft shadow: a golden-hour
+  Mediterranean villa whose cream stucco and terracotta roof pick up the
+  section's cream and oxblood palette. The source frame was cropped to 2.05:1 so
+  the roofline, colonnade and sea horizon all sit inside the plate.
 - ≤ 1024 px the content stacks and the image retains a wide 2.2:1 crop; ≤ 768 px
   it narrows to 1.8:1, ≤ 480 px to 1.5:1 and the metadata becomes a single
   column.
@@ -611,8 +618,9 @@ introduces a deliberate reflow rather than shrinking the desktop canvas.
 
 The original Estatia photography was not supplied. Every slot is filled with a
 free-licence Unsplash or Pexels image, retrieved 7 November 2026 at 2200 px on
-the long edge (CTA: 2000 px) and served through Astro Assets as AVIF/WebP with a
-JPEG fallback.
+the long edge and served through Astro Assets as AVIF/WebP with a JPEG fallback.
+The CTA plate was re-cropped to 2.05:1 from a 2400 × 1600 source; the untouched
+frame is kept beside it at `cta/source/golden-mediterranean-facade.jpg`.
 
 | Section | File | Source | Licence |
 |---|---|---|---|
@@ -634,7 +642,7 @@ JPEG fallback.
 | Collection | `collection/seaside-villa.jpg` | [Unsplash `photo-1600607688969-a5bfcd646154`](https://images.unsplash.com/photo-1600607688969-a5bfcd646154) | Unsplash |
 | Collection | `collection/villa-serenity.jpg` | [Unsplash `photo-1600573472592-401b489a3cdc`](https://images.unsplash.com/photo-1600573472592-401b489a3cdc) | Unsplash |
 | Collection | `collection/ivy-court.jpg` | [Unsplash `photo-1600585154526-990dced4db0d`](https://images.unsplash.com/photo-1600585154526-990dced4db0d) | Unsplash |
-| CTA | `cta/signature-home.jpg` | [Pexels 208736](https://www.pexels.com/photo/208736/) | Pexels |
+| CTA | `cta/signature-home.jpg` | [Pexels 34939808](https://www.pexels.com/photo/34939808/) | Pexels |
 
 - [Unsplash License](https://unsplash.com/license) — free for commercial use,
   attribution not required.

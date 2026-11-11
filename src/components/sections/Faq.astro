@@ -8,30 +8,34 @@ import { faqs } from '@/data/faqs';
 <section class="faq section" aria-labelledby="faq-title">
   <Container>
     <div class="faq__layout">
-      <SectionHeading
-        id="faq-title"
-        size="sm"
-        line1="Frequently"
-        line2="Asked Question?"
-      />
+      <div class="faq__aside">
+        <SectionHeading
+          id="faq-title"
+          size="sm"
+          line1="Frequently"
+          line2="Asked Question?"
+        />
+
+        <a class="faq__help" href="#contact">Need A Help</a>
+      </div>
 
       <div class="faq__list" data-reveal style="--reveal-delay: 80ms">
         {
           faqs.map((faq, index) => (
             <details
-              class="faq-item"
+              class="faq-col"
               name="faq"
               open={index === 0 ? true : undefined}
             >
-              <summary class="faq-item__summary">
-                <span class="faq-item__question">{faq.question}</span>
-                <span class="faq-item__control" aria-hidden="true">
-                  <Icon class="faq-item__plus" name="plus" size={13} />
-                  <Icon class="faq-item__minus" name="minus" size={13} />
+              <summary class="faq-col__summary">
+                <span class="faq-col__control" aria-hidden="true">
+                  <Icon class="faq-col__plus" name="plus" size={13} />
+                  <Icon class="faq-col__minus" name="minus" size={13} />
                 </span>
+                <span class="faq-col__question">{faq.question}</span>
               </summary>
 
-              <div class="faq-item__answer">
+              <div class="faq-col__answer">
                 <p>{faq.answer}</p>
               </div>
             </details>
@@ -45,87 +49,110 @@ import { faqs } from '@/data/faqs';
 <style>
   .faq__layout {
     display: grid;
-    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 0.78fr) minmax(0, 1fr);
     gap: clamp(2.5rem, 6vw, 6rem);
-    align-items: start;
+    align-items: stretch;
   }
 
+  .faq__aside {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-6);
+  }
+
+  /* Small rotated helper pill beside the heading --------------------------- */
+  .faq__help {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    padding: 1rem 0.45rem;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-pill);
+    background-color: var(--color-surface);
+    color: var(--color-muted);
+    font-family: var(--font-body);
+    font-size: var(--text-2xs);
+    font-weight: var(--weight-medium);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    transition:
+      color var(--duration-fast) var(--ease-out),
+      border-color var(--duration-fast) var(--ease-out);
+  }
+
+  .faq__help:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  /* Vertical accordion columns ------------------------------------------- */
   .faq__list {
+    display: flex;
+    align-items: stretch;
+    gap: clamp(0.5rem, 1vw, 0.85rem);
     interpolate-size: allow-keywords;
   }
 
-  .faq-item {
-    /* Padding is present in every state so the question text keeps the same
-       left edge when a row opens; only the fill changes. */
-    padding-inline: clamp(1rem, 1.8vw, 1.5rem);
-    border-block-start: 1px solid var(--color-line);
+  .faq-col {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    align-items: center;
+    max-width: 8.5rem;
+    min-width: 0;
+    padding: 0.85rem 0.45rem 1rem;
+    border-radius: var(--radius-lg);
+    background-color: var(--color-bg-alt);
     transition:
       background-color var(--duration-base) var(--ease-out),
-      border-color var(--duration-base) var(--ease-out);
+      color var(--duration-base) var(--ease-out);
   }
 
-  .faq-item:last-child {
-    border-block-end: 1px solid var(--color-line);
-  }
-
-  .faq-item[open] {
-    border-color: transparent;
-    border-radius: var(--radius-sm);
+  .faq-col[open] {
+    flex: 1.75 1 0;
+    max-width: 12.5rem;
     background-color: var(--color-accent-deep);
     color: var(--color-on-accent);
   }
 
-  .faq-item__summary {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
+  .faq-col__summary {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: var(--space-4);
-    padding-block: 1.05rem;
+    gap: 1.1rem;
+    width: 100%;
     cursor: pointer;
     list-style: none;
   }
 
-  .faq-item__summary::-webkit-details-marker {
+  .faq-col__summary::-webkit-details-marker {
     display: none;
   }
 
-  .faq-item__summary:focus-visible {
+  .faq-col__summary:focus-visible {
     outline: 2px solid var(--color-focus);
     outline-offset: 4px;
   }
 
-  .faq-item__question {
-    font-family: var(--font-body);
-    font-size: var(--text-body);
-    font-weight: var(--weight-medium);
-    line-height: var(--leading-snug);
-    color: var(--color-ink);
-    transition: color var(--duration-base) var(--ease-out);
-  }
-
-  .faq-item[open] .faq-item__question {
-    color: var(--color-on-accent);
-  }
-
-  .faq-item:not([open]) .faq-item__summary:hover .faq-item__question {
-    color: var(--color-accent);
-  }
-
-  .faq-item__control {
+  .faq-col__control {
     position: relative;
     display: grid;
+    flex: 0 0 auto;
     width: 2rem;
     height: 2rem;
     place-items: center;
     border: 1px solid var(--color-line);
     border-radius: 50%;
+    background-color: var(--color-surface);
     color: var(--color-ink);
     transition:
       border-color var(--duration-base) var(--ease-out),
-      color var(--duration-base) var(--ease-out);
+      color var(--duration-base) var(--ease-out),
+      background-color var(--duration-base) var(--ease-out);
   }
 
-  .faq-item__control :global(.icon) {
+  .faq-col__control :global(.icon) {
     position: absolute;
     inset: 0;
     margin: auto;
@@ -134,61 +161,167 @@ import { faqs } from '@/data/faqs';
       transform var(--duration-base) var(--ease-out);
   }
 
-  .faq-item[open] .faq-item__control {
+  .faq-col[open] .faq-col__control {
     border-color: rgba(251, 246, 236, 0.32);
+    background-color: transparent;
     color: var(--color-on-accent);
   }
 
-  .faq-item[open] :global(.faq-item__plus) {
+  .faq-col[open] :global(.faq-col__plus) {
     opacity: 0;
     transform: rotate(90deg) scale(0.8);
   }
 
-  .faq-item:not([open]) :global(.faq-item__minus) {
+  .faq-col:not([open]) :global(.faq-col__minus) {
     opacity: 0;
     transform: rotate(-90deg) scale(0.8);
   }
 
-  .faq-item::details-content {
+  /* Bottom-to-top vertical label, as in the reference layout. */
+  .faq-col__question {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-snug);
+    color: var(--color-ink);
+    transition: color var(--duration-base) var(--ease-out);
+  }
+
+  .faq-col[open] .faq-col__question {
+    color: var(--color-on-accent);
+  }
+
+  .faq-col:not([open]):hover .faq-col__question {
+    color: var(--color-accent);
+  }
+
+  .faq-col::details-content {
     block-size: 0;
     overflow: hidden;
     transition: block-size var(--duration-slow) var(--ease-out);
   }
 
-  .faq-item[open]::details-content {
+  .faq-col[open]::details-content {
     block-size: auto;
   }
 
-  .faq-item__answer {
-    padding-block-end: 1.35rem;
+  .faq-col__answer {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-block-start: 1rem;
+    padding: 1rem 0.5rem;
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface);
     opacity: 0;
-    transform: translateY(-0.25rem);
-    transition:
-      opacity var(--duration-base) var(--ease-out) 60ms,
-      transform var(--duration-base) var(--ease-out) 60ms;
+    transition: opacity var(--duration-base) var(--ease-out) 60ms;
   }
 
-  .faq-item[open] .faq-item__answer {
+  .faq-col[open] .faq-col__answer {
     opacity: 1;
-    transform: translateY(0);
   }
 
-  .faq-item__answer p {
-    max-width: 58ch;
-    font-size: var(--text-sm);
-    line-height: var(--leading-body);
-    color: rgba(251, 246, 236, 0.74);
+  .faq-col__answer p {
+    /* Vertical text has no natural line break, so the run is capped and
+       wrapped into a few narrow columns like the reference. */
+    max-inline-size: 20rem;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: var(--text-2xs);
+    line-height: 1.8;
+    color: var(--color-ink-soft);
   }
 
+  /* Below the two-column breakpoint the columns become stacked rows so the
+     questions stay readable and tappable. */
   @media (max-width: 64rem) {
     .faq__layout {
       grid-template-columns: minmax(0, 1fr);
       gap: var(--space-6);
     }
+
+    .faq__aside {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--space-5);
+    }
+
+    .faq__help {
+      writing-mode: horizontal-tb;
+      transform: none;
+      padding: 0.6rem 1rem;
+    }
+
+    .faq__list {
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .faq-col {
+      flex: 0 0 auto;
+      width: 100%;
+      max-width: none;
+      align-items: stretch;
+      padding: 0 clamp(1rem, 1.8vw, 1.5rem);
+      border-block-start: 1px solid var(--color-line);
+      border-radius: 0;
+      background-color: transparent;
+    }
+
+    .faq-col:last-child {
+      border-block-end: 1px solid var(--color-line);
+    }
+
+    .faq-col[open] {
+      flex: 0 0 auto;
+      width: 100%;
+      max-width: none;
+      border-color: transparent;
+      border-radius: var(--radius-sm);
+      background-color: var(--color-accent-deep);
+    }
+
+    .faq-col__summary {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      padding-block: 1.05rem;
+    }
+
+    .faq-col__question {
+      writing-mode: horizontal-tb;
+      transform: none;
+      font-size: var(--text-body);
+      order: -1;
+    }
+
+    .faq-col__answer {
+      flex: 0 0 auto;
+      margin-block-start: 0;
+      padding: 0 0 1.35rem;
+      border-radius: 0;
+      background-color: transparent;
+    }
+
+    .faq-col__answer p {
+      max-inline-size: none;
+      writing-mode: horizontal-tb;
+      transform: none;
+      max-width: 58ch;
+      font-size: var(--text-sm);
+      line-height: var(--leading-body);
+      color: rgba(251, 246, 236, 0.74);
+    }
   }
 
   @media (max-width: 30rem) {
-    .faq-item__question {
+    .faq-col__question {
       font-size: var(--text-sm);
     }
   }
