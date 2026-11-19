@@ -219,6 +219,10 @@ All values are **visually estimated from the low-resolution reference**; they ar
 > request and no longer exists in the build; row 10's avatar cluster is now a
 > set of initials chips.
 
+> **Update, 19 November 2026.** The CTA plate follows the same rule as the hero:
+> the villa is now a cut-out composited onto `#f3eee4`, so both large images read
+> as buildings standing on cream rather than photographs with skies.
+
 ---
 
 ## 6. Layout, spacing, sizing
@@ -346,6 +350,16 @@ Not derivable from a desktop-only capture. Conservative, reference-faithful assu
 > fits with the theme", so the plate now holds a golden-hour Mediterranean villa
 > (Pexels 34939808) cropped to 2.05:1 — cream stucco, terracotta roof and a warm
 > sky that sit inside the section's cream/oxblood palette. Geometry is unchanged.
+
+> **Update, 19 November 2026.** The client re-sent the cream swatch (`#f3eee4`)
+> with "use this color for bg so that building look like with bg remove". The sky,
+> the hazy sea behind the colonnade and the sensor dust are now keyed out of the
+> 2.05:1 crop and the villa is composited onto a flat `#f3eee4` field at
+> 1600 × 780, so the building reads as sitting on the card itself. The cut-out is
+> built from a per-row sky model plus a warm-haze pass, a small-island filter for
+> the dust, and a two-pixel erosion so the anti-aliased rim does not leave a pale
+> halo. `.cta__media` also uses `--color-bg-alt` as its background so the plate
+> and the image are one surface. The source frame is untouched.
 
 ### 7.9 Footer
 - No link columns, no legal row visible.

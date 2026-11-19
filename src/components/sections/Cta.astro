@@ -155,7 +155,9 @@ import signatureHome from '@/assets/images/cta/signature-home.jpg';
     aspect-ratio: 2.05 / 1;
     margin: 0;
     border-radius: var(--radius-lg);
-    background-color: var(--color-img-tint);
+    /* Matches the cream the cut-out is composited on, so the plate reads as one
+       surface if the image ever letterboxes. */
+    background-color: var(--color-bg-alt);
     box-shadow: var(--shadow-soft);
   }
 

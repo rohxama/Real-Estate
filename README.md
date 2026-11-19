@@ -516,8 +516,14 @@ placeholders; the reference only shows row `01` expanded.
   (phone, email, studio, Instagram).
 - The image is a 2.05:1 rounded plate with a soft shadow: a golden-hour
   Mediterranean villa whose cream stucco and terracotta roof pick up the
-  section's cream and oxblood palette. The source frame was cropped to 2.05:1 so
-  the roofline, colonnade and sea horizon all sit inside the plate.
+  section's cream and oxblood palette.
+- **Background cut-out (19 Nov 2026).** The plate uses the client's cream
+  swatch (`--color-bg-alt`, `#f3eee4`) as its background and the villa is keyed
+  out of the original photograph, so the building reads as if it sits on the
+  card rather than in a photo. The sky, the hazy sea behind the colonnade and
+  the sensor dust are removed, then the building is composited onto a flat
+  cream field at 1600 × 780. The plate's CSS background is the same cream, so
+  the image edge and the card are one surface if the file ever letterboxes.
 - ≤ 1024 px the content stacks and the image retains a wide 2.2:1 crop; ≤ 768 px
   it narrows to 1.8:1, ≤ 480 px to 1.5:1 and the metadata becomes a single
   column.
@@ -620,7 +626,10 @@ The original Estatia photography was not supplied. Every slot is filled with a
 free-licence Unsplash or Pexels image, retrieved 7 November 2026 at 2200 px on
 the long edge and served through Astro Assets as AVIF/WebP with a JPEG fallback.
 The CTA plate was re-cropped to 2.05:1 from a 2400 × 1600 source; the untouched
-frame is kept beside it at `cta/source/golden-mediterranean-facade.jpg`.
+frame is kept beside it at `cta/source/golden-mediterranean-facade.jpg`. On
+19 November 2026 the sky was keyed out of that crop and the villa was composited
+onto flat `#f3eee4` cream, at the client's request, so the building sits on the
+same cream as the card (see [CTA / contact band](#cta--contact-band)).
 
 | Section | File | Source | Licence |
 |---|---|---|---|
